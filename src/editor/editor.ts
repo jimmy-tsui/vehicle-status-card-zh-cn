@@ -220,8 +220,8 @@ export class VehicleStatusCardEditor extends BaseEditor implements LovelaceCardE
       return nothing;
     }
     const alertMigration = html`${Create.HaAlert({
-      message: html` For more info in the <a href=${ALERT_INFO.INDICATOR_ROW_URL} target="_blank">WIKI</a>. Or migrate
-        to the new format.`,
+      message: html` 更多信息请参阅 <a href=${ALERT_INFO.INDICATOR_ROW_URL} target="_blank">WIKI</a>，或迁移
+        到新格式。`,
       options: {
         title: '新建指示器配置',
         action: [
@@ -254,7 +254,7 @@ export class VehicleStatusCardEditor extends BaseEditor implements LovelaceCardE
     `;
 
     const tabsConfig = [
-      { content: single, key: 'single', label: 'Single' },
+      { content: single, key: 'single', label: '单个' },
       { content: group, key: 'group', label: '分组' },
     ];
 

@@ -115,7 +115,7 @@ export const TIRE_BACKGROUND_SCHEMA = [
       },
     },
     helper:
-      'The image should be square with a maximum resolution of 450x450 pixels. A transparent background is recommended.',
+      '图片应为正方形，最大分辨率 450x450 像素，建议使用透明背景。',
   },
   {
     name: 'background_entity',

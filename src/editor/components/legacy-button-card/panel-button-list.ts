@@ -213,7 +213,7 @@ export class PanelButtonList extends BaseEditor {
           : html`
               <span slot="primary-action">
                 <ha-button size="small" appearance="filled" @click=${() => this._toggleAction(ACTIONS.ADD_NEW_BUTTON)}>
-                  <ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>Add Button</ha-button
+                  <ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>添加按钮</ha-button
                 >
               </span>
               <span slot="secondary-action">
@@ -256,7 +256,7 @@ export class PanelButtonList extends BaseEditor {
     const visibleButtons = buttons.filter((btn) => !btn.hide_button);
     const hiddenButtons = buttons.filter((btn) => btn.hide_button);
     return !buttons.length
-      ? html`<span>No buttons added</span>`
+      ? html`<span>尚未添加按钮</span>`
       : html`<ha-sortable handle-selector=".handle" .noStyle=${true} @item-moved=${this._buttonsMoved}>
             <div class=${!isListView ? 'button-grid-list' : 'button-list'} style=${this._computeGridColumns()}>
               ${repeat(

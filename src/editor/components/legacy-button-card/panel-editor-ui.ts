@@ -114,7 +114,7 @@ export class PanelEditorUI extends BaseEditor {
     const toolBar = html`
       <div class="toolbar">
         ${!cardsLength
-          ? html`<div class="title">Choose card to add</div>`
+          ? html`<div class="title">选择要添加的卡片</div>`
           : html`
               <vic-tab-bar>
                 ${this.cards.map(

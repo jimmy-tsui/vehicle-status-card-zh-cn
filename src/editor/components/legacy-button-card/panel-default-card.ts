@@ -127,7 +127,7 @@ export class PanelDefaultCard extends LitElement {
 
     return html`
       <div class="header-row no-padding">
-        <div class="header-title">Items</div>
+        <div class="header-title">条目</div>
       </div>
       <ha-sortable handle-selector=".handle" @item-moved=${this._entityMoved}>
         <div class="indicator-list">
@@ -199,7 +199,7 @@ export class PanelDefaultCard extends LitElement {
           }}
           .path=${ICON.CLOSE}
         ></ha-icon-button>
-        <div class="header-title">Edit Item</div>
+        <div class="header-title">编辑条目</div>
       </div>
       <ha-form
         .hass=${this.hass}

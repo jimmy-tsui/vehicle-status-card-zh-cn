@@ -81,7 +81,7 @@ export class PanelButtonDefaultCard extends ButtonCardBaseEditor {
   private _renderDefaultCardList(): TemplateResult {
     const categories = this._defaultCardConfig || [];
     if (categories.length === 0) {
-      return html` <span>No category added yet.</span> `;
+      return html` <span>尚未添加分组。</span> `;
     }
     return html`
       <ha-sortable handle-selector=".handle" .listIndex=${'1'} @item-moved=${this._categoryMoved}>

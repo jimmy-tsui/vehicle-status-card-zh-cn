@@ -55,7 +55,7 @@ export class VscYamlEditor extends BaseEditor {
             appearance="plain"
             slot="extra-actions"
             @click=${this._closeEditor}
-            >Close Editor</ha-button
+            >关闭编辑器</ha-button
           > `
         : nothing}
     </ha-yaml-editor>`;

@@ -108,7 +108,7 @@ const TEMPLATES = [
     name: 'color_template',
     label: '图标颜色模板',
     helper:
-      'Template to override the color to the icon. The template should return a valid CSS color (name, hex, rgb, hsl, etc.).',
+      '通过模板覆盖图标颜色。模板需返回合法的 CSS 颜色（名称、hex、rgb、hsl 等）。',
   },
 ] as const;
 
@@ -364,7 +364,7 @@ const SECONDARY_INFO_SCHEMA = (entity?: string) =>
                 name: 'state_content',
                 label: '次要状态内容',
                 helper:
-                  'Additional content to display in the secondary state area. Select from available attributes and options.',
+                  '在次要状态区域显示附加内容。可从可用属性与选项中选择。',
                 selector: {
                   ui_state_content: {
                     entity_id: entity,

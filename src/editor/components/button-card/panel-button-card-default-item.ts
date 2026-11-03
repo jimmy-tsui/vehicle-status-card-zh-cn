@@ -153,7 +153,7 @@ export class PanelButtonCardDefaultItem extends ButtonCardBaseEditor {
     ];
     return html`
       <div class="header-row no-padding">
-        <div class="header-title">Items</div>
+        <div class="header-title">条目</div>
       </div>
       <ha-sortable handle-selector=".handle" @item-moved=${this._entityMoved}>
         <div class="indicator-list">

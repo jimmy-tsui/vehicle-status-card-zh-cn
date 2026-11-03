@@ -133,7 +133,7 @@ export const VicTab = ({
       )}
     </vic-tab-bar>
 
-    <div class="vic-tab-content">${tabs[activeTabIndex]?.content || html`<div>No content available</div>`}</div>
+    <div class="vic-tab-content">${tabs[activeTabIndex]?.content || html`<div>没有可用内容</div>`}</div>
   `;
 };
 

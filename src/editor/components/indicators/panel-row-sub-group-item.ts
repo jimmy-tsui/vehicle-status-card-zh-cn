@@ -129,7 +129,7 @@ export class PanelRowSubGroupItem extends BaseEditor {
     const content = html`
       <div class="row-items">
         ${includedMembers.map((ent) => this._renderBadgeItem(ent, excluded.has(ent)))}
-        ${excluded.size > 0 ? html`<div class="divider"><span> Excluded members </span></div>` : ''}
+        ${excluded.size > 0 ? html`<div class="divider"><span> 已排除的成员 </span></div>` : ''}
         ${[...excluded].map((ent) => this._renderBadgeItem(ent, excluded.has(ent)))}
       </div>
     `;

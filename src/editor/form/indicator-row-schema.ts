@@ -378,7 +378,7 @@ export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: b
                 label: '忽略分组内成员',
                 type: 'boolean',
                 helper:
-                  'Do not include entities from the group entity attribute. Only use entities defined in the items.',
+                  '不从组实体属性中引入实体，仅使用 items 中定义的实体。',
                 default: false,
               },
             ]

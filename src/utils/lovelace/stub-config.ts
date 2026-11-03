@@ -24,7 +24,7 @@ const getSampleImages = (): ImageItem[] => {
 };
 
 const DEFAULT_CONFIG: Partial<VehicleStatusCardConfig> = {
-  name: 'Vehicle Status Card',
+  name: '车辆状态卡片',
   button_card: [createButtonCard('default'), createButtonCard('custom')],
   images: [...getSampleImages()],
   layout_config: {

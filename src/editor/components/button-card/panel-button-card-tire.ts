@@ -265,7 +265,7 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
     if (!this._subElementConfig) return null;
     const docURL = html`For more information, see
       <a href="https://www.home-assistant.io/dashboards/picture-elements#elements" target="_blank" rel="noreferrer"
-        >HA Picture Elements Documentation</a
+        >HA Picture Elements 文档</a
       >.`;
     return html` ${this._createAlert(docURL)}
       <vsc-sub-element-editor

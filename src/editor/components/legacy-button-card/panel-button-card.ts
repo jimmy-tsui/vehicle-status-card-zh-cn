@@ -350,14 +350,14 @@ export class PanelButtonCard extends BaseEditor {
 
     const footerActions = html` <div class="action-footer">
       <ha-button size="small" appearance="filled" @click=${this.toggleAction('category-add', buttonIndex)}
-        ><ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>Add category</ha-button
+        ><ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>添加分组</ha-button
       >
       <ha-button
         size="small"
         variant="neutral"
         appearance="filled"
         @click=${this.toggleAction('yaml-default-card', buttonIndex)}
-        >Edit YAML</ha-button
+        >编辑 YAML</ha-button
       >
     </div>`;
 
@@ -438,7 +438,7 @@ export class PanelButtonCard extends BaseEditor {
 
     return html`
       <div class="sub-header" ?hidden=${isHidden}>
-        <div>Custom Card Configuration</div>
+        <div>自定义卡片配置</div>
         <div class="subcard-icon">
           <ha-button size="small" appearance="filled" @click=${() => this._togglePreview('custom', buttonIndex)}>
             ${this._activePreview === 'custom' ? 'Close Preview' : 'Preview'}</ha-button

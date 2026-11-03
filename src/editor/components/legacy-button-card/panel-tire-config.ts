@@ -33,7 +33,7 @@ export class PanelTireConfig extends BaseEditor {
       ? html` <div class="indicator-config">
           ${tireBackground} ${tireAppearance} ${tireEntities}
           <ha-button size="small" variant="neutral" appearance="filled" @click=${() => (this.yamlMode = true)}
-            >Edit YAML</ha-button
+            >编辑 YAML</ha-button
           >
         </div>`
       : this._renderYamlEditor();
@@ -57,7 +57,7 @@ export class PanelTireConfig extends BaseEditor {
       <div class="sub-content">
         ${this.tireConfig?.background !== undefined && this.tireConfig?.background !== ''
           ? html`<ha-button size="small" appearance="filled" @click=${this._handleAction('reset_background')}
-              >Use Default</ha-button
+              >恢复默认</ha-button
             >`
           : nothing}
       </div>
@@ -65,7 +65,7 @@ export class PanelTireConfig extends BaseEditor {
 
     return Create.ExpansionPanel({
       content,
-      options: { header: '背景图片', secondary: 'Change the background image of the tire card' },
+      options: { header: '背景图片', secondary: '调整轮胎卡片的背景图片' },
     });
   }
 
@@ -75,7 +75,7 @@ export class PanelTireConfig extends BaseEditor {
     const content = html`
       ${appearanceForm}
       <div class="sub-content">
-        <ha-button Use Default @click=${this._handleAction('reset_appearance')}>Reset to Default'</ha-button>
+        <ha-button size="small" appearance="filled" @click=${this._handleAction('reset_appearance')}>恢复默认</ha-button>
       </div>
     `;
 

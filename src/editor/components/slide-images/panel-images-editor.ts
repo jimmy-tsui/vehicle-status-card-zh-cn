@@ -50,7 +50,7 @@ export class PanelImagesEditor extends BaseEditor {
 
   protected render(): TemplateResult {
     if (!this.config || !this._hass) {
-      return html`<div>Loading...</div>`;
+      return html`<div>加载中...</div>`;
     }
     const viewSelected = {
       grid: this._renderPreview(),
@@ -65,7 +65,7 @@ export class PanelImagesEditor extends BaseEditor {
     const isActive = (key: ACTIVE_VIEW) => this._selectedView === key;
     return html`<sub-editor-header hide-primary hide-secondary>
       <ha-button slot="primary-action" size="small" appearance="filled" @click=${this._showAddImage}
-        ><ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>Add image</ha-button
+        ><ha-svg-icon .path=${ICON.PLUS} slot="start"></ha-svg-icon>添加图片</ha-button
       >
       <span slot="secondary-action">
         ${ActiveViews.map(

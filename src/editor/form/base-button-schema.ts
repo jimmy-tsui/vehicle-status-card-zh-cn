@@ -105,7 +105,7 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
                 default: false,
                 disabled: secondEntity === undefined || secondEntity === '',
                 helper:
-                  'Set to true to have icon colored when entity is active, or to show entity picture instead of icon. (entity required)',
+                  '设为 true：实体激活时图标着色；未设置图标时显示实体图片。（需要实体）',
               },
               {
                 name: 'color',

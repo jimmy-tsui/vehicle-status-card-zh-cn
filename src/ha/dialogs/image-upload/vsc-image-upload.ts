@@ -195,7 +195,7 @@ export class VscImageUpload extends LitElement implements HassDialog<ImageUpload
           })}
         </div>
 
-        <ha-tip .hass=${this.hass}>Click on an image to remove it.</ha-tip>
+        <ha-tip .hass=${this.hass}>点击图片即可移除。</ha-tip>
       </div>
     `;
   }
@@ -325,7 +325,7 @@ export class VscImageUpload extends LitElement implements HassDialog<ImageUpload
         uploadedImages.push(url);
       }
       if (unsupportedFiles.length > 0) {
-        const description = html` <p>The following files have unsupported formats and were not uploaded:</p>
+        const description = html` <p>以下文件格式不受支持，未上传：</p>
           <ul>
             ${unsupportedFiles.map((file) => html`<li>${file}</li>`)}
           </ul>`;

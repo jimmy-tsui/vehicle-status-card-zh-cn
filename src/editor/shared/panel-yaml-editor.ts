@@ -52,7 +52,7 @@ export class SubPanelYaml extends LitElement {
                 style="float: inline-end;"
                 slot="extra-actions"
                 @click=${this._closeEditor}
-                >Close Editor</ha-button
+                >关闭编辑器</ha-button
               >`
             : nothing}
         </ha-yaml-editor>

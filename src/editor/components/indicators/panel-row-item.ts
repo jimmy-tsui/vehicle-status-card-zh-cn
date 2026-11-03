@@ -267,7 +267,7 @@ export class PanelIndicatorItem extends BaseEditor {
       case 'group':
         const groupConfig: IndicatorRowItem = {
           type: 'group',
-          name: 'New Group',
+          name: '新分组',
           icon: 'mdi:format-list-bulleted',
           items: [
             {

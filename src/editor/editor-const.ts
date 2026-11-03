@@ -10,11 +10,11 @@ const makePanel = (name: string, description: string, icon?: string, helper?: st
 const DOC_URL = 'https://github.com/ngocjohn/vehicle-status-card?tab=readme-ov-file#';
 
 export const CONFIG_TYPES = {
-  name: 'Config type',
+  name: '配置类型',
   description: '选择要编辑的配置类型。',
   options: {
     indicators: {
-      name: 'Indicators',
+      name: '指示器',
       description: '以指示器形式显示单个或分组的实体状态。',
       doc: `${DOC_URL}indicators-configuration`,
       subpanels: {
@@ -29,7 +29,7 @@ export const CONFIG_TYPES = {
       },
     },
     range_info: {
-      name: 'Range progress bar',
+      name: '里程信息条',
       description: '为燃油、电量或任意带里程状态的实体显示进度条。',
       doc: `${DOC_URL}range-info-bars`,
       subpanels: {
@@ -40,17 +40,17 @@ export const CONFIG_TYPES = {
       },
     },
     images: {
-      name: 'Images',
+      name: '图片轮播',
       description: '添加轮播图片，并设置自动切换的间隔时间。',
       doc: `${DOC_URL}image-slides`,
     },
     mini_map: {
-      name: 'Mini Map',
+      name: '小地图',
       description: '在小地图上跟踪 device_tracker 实体。',
       doc: `${DOC_URL}mini-map`,
     },
     buttons: {
-      name: 'Buttons and sub-cards',
+      name: '按钮与子卡片',
       description: '配置按钮外观、通知以及默认/自定义卡片。',
       doc: `${DOC_URL}button-card`,
       subpanels: {
@@ -64,7 +64,7 @@ export const CONFIG_TYPES = {
       },
     },
     layout_config: {
-      name: 'Layout Configuration',
+      name: '布局配置',
       description: '设置卡片的布局、主题及各区块的可见性。',
     },
   },

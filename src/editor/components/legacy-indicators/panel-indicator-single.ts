@@ -59,7 +59,7 @@ export class PanelIndicatorSingle extends LitElement {
     ];
 
     return !this.singleConfig
-      ? html`<div class="empty-list">No indicators configured</div>`
+      ? html`<div class="empty-list">尚未配置指示器</div>`
       : html`
           <ha-sortable handle-selector=".handle" @item-moved=${this._itemMoved}>
             <div class="indicator-list">
@@ -136,9 +136,9 @@ export class PanelIndicatorSingle extends LitElement {
       <div class="sub-header">
         <div class="icon-title" @click=${() => (this._yamlEditorVisible = false)}>
           <ha-icon icon="mdi:close"></ha-icon>
-          <span>Close editor</span>
+          <span>关闭编辑器</span>
         </div>
-        <div>YAML editor</div>
+        <div>YAML 编辑器</div>
       </div>
       <div class="sub-panel-config">
         <panel-yaml-editor
@@ -170,7 +170,7 @@ export class PanelIndicatorSingle extends LitElement {
           <div class="icon-title">
             <ha-icon-button .path=${ICON.CLOSE} @click=${() => (this._selectedItem = null)}></ha-icon-button>
           </div>
-          <div class="header-title">Item config</div>
+          <div class="header-title">条目配置</div>
           <ha-icon-button
             class="header-yaml-icon"
             @click=${() => (this._yamlSubEditorVisible = !this._yamlSubEditorVisible)}

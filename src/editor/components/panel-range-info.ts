@@ -543,7 +543,7 @@ export class PanelRangeInfo extends BaseEditor {
           `
         : html`
             <div class="sub-panel-config" data-index=${index}>
-              ${Create.ExpansionPanel({ content: energyLevelSection, options: { header: 'Energy level' } })}
+              ${Create.ExpansionPanel({ content: energyLevelSection, options: { header: '电量等级' } })}
               ${Create.ExpansionPanel({
                 content: rangeLevelSection,
                 options: { header: '里程等级（可选）' },
@@ -829,7 +829,7 @@ export class PanelRangeInfo extends BaseEditor {
     return html`
       ${colorBlocksForm} ${gradienPreview}
       ${noColors
-        ? html`<div class="empty-list">No color thresholds added yet.</div>`
+        ? html`<div class="empty-list">尚未添加颜色阈值。</div>`
         : html`<ha-sortable handle-selector=".handle" @item-moved=${this._colorMoved}>
             <div class="indicator-list">
               ${repeat(
@@ -881,14 +881,14 @@ export class PanelRangeInfo extends BaseEditor {
                   appearance="filled"
                   ?hidden=${isSorted}
                   @click=${() => this._sortColorArr()}
-                  >Sort</ha-button
+                  >排序</ha-button
                 >
                 <ha-button
                   size="small"
                   variant="warning"
                   appearance="filled"
                   @click=${() => this._rangeColorThresholdsChanged([])}
-                  >Remove All</ha-button
+                  >全部移除</ha-button
                 >
               `
             : html`<ha-button
@@ -898,15 +898,15 @@ export class PanelRangeInfo extends BaseEditor {
                 variant="neutral"
                 appearance="filled"
                 @click=${() => this._createRandomPallete()}
-                >Random color pallete</ha-button
+                >随机调色板</ha-button
               >`}
           <ha-button
             ?hidden=${noEntity}
             size="small"
             appearance="filled"
-            .label=${'Add'}
+            .label=${'添加'}
             @click=${() => this._addColorThreshold()}
-            >Add</ha-button
+            >添加</ha-button
           >
         </div>
       </div>

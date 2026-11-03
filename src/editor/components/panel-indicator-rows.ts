@@ -83,7 +83,7 @@ export class PanelIndicatorRows extends BaseEditor {
     const rows = this._rows;
 
     return !rows.length
-      ? html`<span>No indicator rows configured.</span>`
+      ? html`<span>尚未配置指示器行。</span>`
       : html`
           <ha-sortable handle-selector=".handle" @item-moved=${this._entityMoved}>
             <div class="card-config" id="rowList">

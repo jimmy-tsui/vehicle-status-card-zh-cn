@@ -178,13 +178,13 @@ export class MenuElement extends BaseEditor {
             html`<div class="tip-item" @click="${() => this._handleItemClick(key)}" role="button" tabindex="0">
               <div class="tip-title">
                 ${name}
-                ${key === 'indicators' && this._legacyIndicator ? html`<span>New Config Format!</span>` : nothing}
+                ${key === 'indicators' && this._legacyIndicator ? html`<span>新配置格式！</span>` : nothing}
               </div>
               <span>${description}</span>
             </div>`
         )}
       </div>
-      <div class="version-footer">Version: ${CARD_VERSION}</div> `;
+      <div class="version-footer">版本：${CARD_VERSION}</div> `;
   }
 
   private _handleItemClick(event: CustomEvent | string): void {

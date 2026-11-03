@@ -66,7 +66,7 @@ export class PanelButtonCardSec extends BaseEditor {
     const visibleBtns = buttonList.filter((btn) => !btn.hide_button);
     const hiddenBtns = buttonList.filter((btn) => btn.hide_button);
     return !buttonList.length
-      ? html`<div>No buttons added.</div>`
+      ? html`<div>尚未添加按钮。</div>`
       : html` <ha-sortable handle-selector=".handle" .noStyle=${true} @item-moved=${this._buttonMoved}>
             <div class="button-grid-list" style=${this._computeGridColumns()}>
               ${repeat(visibleBtns, (btn: BaseButtonCardItemConfig, index: number) => {

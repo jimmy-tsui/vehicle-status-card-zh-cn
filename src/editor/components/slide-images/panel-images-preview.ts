@@ -25,7 +25,7 @@ export class PanelImagesPreview extends BaseEditor {
   protected render(): TemplateResult {
     if (!this.images || this.images.length === 0) {
       return html` <div class="card-config">
-        <p>No images configured. Add images to see a preview here.</p>
+        <p>尚未配置图片，添加图片后将在这里预览。</p>
       </div>`;
     }
 

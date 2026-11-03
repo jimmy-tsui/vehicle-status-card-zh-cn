@@ -67,7 +67,7 @@ export class PanelIndicatorGroup extends LitElement {
     ];
 
     return html`${!groups.length
-        ? html`<div class="empty-list">No groups added</div>`
+        ? html`<div class="empty-list">尚未添加分组</div>`
         : html` <ha-sortable handle-selector=".handle" @item-moved=${this._groupMoved}>
             <div class="indicator-list">
               ${repeat(
@@ -151,7 +151,7 @@ export class PanelIndicatorGroup extends LitElement {
     const toolBar = html`
       <div class="toolbar">
         ${!this.groupItems.length || this.groupItems.length === 0
-          ? html`<div class="empty-list">No items yet, click + to add</div>`
+          ? html`<div class="empty-list">还没有条目，点击 + 添加</div>`
           : html`
               <vic-tab-bar>
                 ${this.groupItems.map(
@@ -236,7 +236,7 @@ export class PanelIndicatorGroup extends LitElement {
             @click=${() => {
               this._removeGroupItem(index), (this._selectedItem = index === 0 ? 0 : index - 1);
             }}
-            >Remove Item</ha-button
+            >移除条目</ha-button
           >
         </div>
       </div>
@@ -253,9 +253,9 @@ export class PanelIndicatorGroup extends LitElement {
       <div class="sub-header">
         <div class="icon-title" @click=${() => (this._yamlMode = false)}>
           <ha-icon icon="mdi:close"></ha-icon>
-          <span>Close editor</span>
+          <span>关闭编辑器</span>
         </div>
-        <div>YAML editor</div>
+        <div>YAML 编辑器</div>
       </div>
     `;
     return html`

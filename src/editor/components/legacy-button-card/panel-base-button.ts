@@ -37,7 +37,7 @@ export class PanelBaseButton extends LitElement {
       ? html`<div class="indicator-config">
           ${baseBtnType} ${btnAppearance} ${btnAction}
           <ha-button size="small" variant="neutral" appearance="filled" @click=${() => (this.yamlMode = true)}
-            >Edit YAML</ha-button
+            >编辑 YAML</ha-button
           >
         </div>`
       : this._renderYamlEditor();
