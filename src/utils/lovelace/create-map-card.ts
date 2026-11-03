@@ -7,6 +7,7 @@ import {
   type ExtraMapCardConfig,
   computePopupCardConfig,
 } from '../../types/config';
+import { wgs84ToGcj02 } from '../gcj02';
 import { createCardElement } from './create-card-element';
 
 export const getMapData = (hass: HomeAssistant, config: VehicleStatusCardConfig): MapData | void => {
@@ -44,7 +45,12 @@ export const _getMapAddress = async (config: MiniMapConfig, lat: number, lon: nu
       const apiKey = config?.google_api_key;
       const tiandituKey = config?.tianditu_key;
       const useTianditu = config?.map_source === 'tianditu' && !!tiandituKey;
+      const gaodeKey = config?.gaode_key;
+      const useGaode = config?.map_source === 'gaode' && !!gaodeKey;
 
+      if (useGaode) {
+        return getAddressFromGaode(lat, lon, gaodeKey!);
+      }
       if (useTianditu) {
         return getAddressFromTianditu(lat, lon, tiandituKey!);
       }
@@ -159,6 +165,37 @@ export async function getAddressFromOpenStreet(lat: number, lon: number): Promis
     };
   } catch (error) {
     console.warn('Error fetching address:', error);
+    return null;
+  }
+}
+
+export async function getAddressFromGaode(lat: number, lon: number, apiKey: string): Promise<Address | null> {
+  // Amap/Gaode reverse geocoding (国内网络友好). Amap expects GCJ-02 coordinates,
+  // so the WGS-84 point is corrected before the request.
+  try {
+    const gcj = wgs84ToGcj02(lat, lon);
+    const url = `https://restapi.amap.com/v3/geocode/regeo?key=${apiKey}&location=${gcj.lng},${gcj.lat}&extensions=all&output=json`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Failed to fetch address from Gaode');
+    }
+    const data: any = await response.json();
+    if (data.status !== '1' || !data.regeocode) {
+      console.warn('Gaode regeo error:', data.info || data.status);
+      return null;
+    }
+    const regeo = data.regeocode;
+    const comp = regeo.addressComponent || {};
+    const streetNumber = comp.streetNumber?.number ? `${comp.streetNumber.number}` : '';
+    const street = comp.streetNumber?.street || comp.township || '';
+    return {
+      streetNumber,
+      streetName: street || (typeof regeo.formatted_address === 'string' ? regeo.formatted_address : ''),
+      sublocality: typeof comp.district === 'string' ? comp.district : '',
+      city: typeof comp.city === 'string' && comp.city ? comp.city : typeof comp.province === 'string' ? comp.province : '',
+    };
+  } catch (error) {
+    console.warn('Error fetching address from Gaode:', error);
     return null;
   }
 }

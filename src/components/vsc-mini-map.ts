@@ -19,6 +19,7 @@ import { Address, MAP_SOURCE, MapData, MiniMapConfig } from '../types/config';
 import { SECTION } from '../types/section';
 import { isSafari, randomHexColor } from '../utils';
 import { BaseElement } from '../utils/base-element';
+import { wgs84ToGcj02 } from '../utils/gcj02';
 import { _getMapAddress } from '../utils/lovelace/create-map-card';
 import { showHaMapDialog } from '../utils/lovelace/show-map-dialog';
 
@@ -93,6 +94,24 @@ export class MiniMapBox extends BaseElement {
 
   private get tiandituKey(): string | undefined {
     return this.mapConfig?.tianditu_key;
+  }
+
+  private get gaodeKey(): string | undefined {
+    return this.mapConfig?.gaode_key;
+  }
+
+  /**
+   * Convert a WGS-84 point (GPS / Home Assistant) into the coordinate system
+   * used by the active tile source. Gaode tiles are GCJ-02 ("Mars"), so the
+   * GPS point must be shifted before rendering, otherwise the marker sits
+   * ~50-500 m away from its real ground position. All other sources are WGS-84.
+   */
+  private _displayLatLng(lat: number, lon: number): L.LatLng {
+    if (this.mapSource !== 'gaode') {
+      return L.latLng(lat, lon);
+    }
+    const gcj = wgs84ToGcj02(lat, lon);
+    return L.latLng(gcj.lat, gcj.lng);
   }
 
   private get userLocationEnabled(): boolean {
@@ -197,7 +216,7 @@ export class MiniMapBox extends BaseElement {
           this.mapData.lat = latitude;
           this.mapData.lon = longitude;
           this.latLon = this._getTargetLatLng(this.map);
-          this.marker?.setLatLng([latitude, longitude]);
+          this.marker?.setLatLng(this._displayLatLng(latitude, longitude));
           this.map.setView(this.latLon, this.zoom);
           this._getAddress();
         }
@@ -250,7 +269,7 @@ export class MiniMapBox extends BaseElement {
     const mapContainer = this.shadowRoot?.getElementById('map') as HTMLElement;
     if (!mapContainer) return;
 
-    this.map = L.map(mapContainer, mapOptions).setView([lat, lon]);
+    this.map = L.map(mapContainer, mapOptions).setView(this._displayLatLng(lat, lon));
     // Add tile layer to map
     this._addMaplibreLayer(this.map);
     this.latLon = this._getTargetLatLng(this.map);
@@ -270,7 +289,7 @@ export class MiniMapBox extends BaseElement {
     this.map.on('moveend zoomend', () => {
       // check visibility of marker icon on view
       const bounds = this.map!.getBounds();
-      const isMarkerVisible = bounds.contains([lat, lon]);
+      const isMarkerVisible = bounds.contains(this._displayLatLng(lat, lon));
       this._locateIconVisible = isMarkerVisible;
     });
 
@@ -296,7 +315,7 @@ export class MiniMapBox extends BaseElement {
     console.log('Calculating target LatLng for map centering...');
     const { lat, lon } = this.mapData!;
     const mapSizeSplit = map.getSize().x;
-    const targetPoint = map.project([lat, lon], this.zoom).subtract([mapSizeSplit / 5, 3]);
+    const targetPoint = map.project(this._displayLatLng(lat, lon), this.zoom).subtract([mapSizeSplit / 5, 3]);
     const targetLatLng = map.unproject(targetPoint, this.zoom);
     return targetLatLng;
   }
@@ -323,14 +342,15 @@ export class MiniMapBox extends BaseElement {
       this._userMarker.remove();
     }
 
-    const circle = this._addCirclePoint(e.latlng, 12);
+    const display = this._displayLatLng(e.latlng.lat, e.latlng.lng);
+    const circle = this._addCirclePoint(display, 12);
     const customIcon = L.divIcon({
       html: `<ha-icon icon="mdi:map-marker-radius"></ha-icon>`,
       iconSize: [24, 24],
       className: 'user-location-marker',
     });
     const popupContent = await this._createPopupContent(e.latlng);
-    const userMarker = new DecoratedMarker(e.latlng, circle, {
+    const userMarker = new DecoratedMarker(display, circle, {
       icon: customIcon,
       interactive: true,
     });
@@ -352,6 +372,35 @@ export class MiniMapBox extends BaseElement {
    * which works well on domestic (China) networks.
    */
   private _buildMapStyle(): any {
+    // Gaode/Amap official tiles (GCJ-02). No key needed for the tiles;
+    // render positions are corrected WGS-84→GCJ-02 via `_displayLatLng`.
+    if (this.mapSource === 'gaode') {
+      const tileUrl = (style: number) =>
+        `https://webrst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=${style}&x={x}&y={y}&z={z}`;
+      return {
+        version: 8,
+        sources: {
+          gaode_base: {
+            type: 'raster',
+            tiles: [tileUrl(7)],
+            tileSize: 256,
+            minzoom: 1,
+            maxzoom: 18,
+          },
+          gaode_label: {
+            type: 'raster',
+            tiles: [tileUrl(8)],
+            tileSize: 256,
+            minzoom: 1,
+            maxzoom: 18,
+          },
+        },
+        layers: [
+          { id: 'gaode-base', type: 'raster', source: 'gaode_base' },
+          { id: 'gaode-label', type: 'raster', source: 'gaode_label' },
+        ],
+      };
+    }
     const key = this.tiandituKey;
     if (this.mapSource === 'tianditu' && !!key) {
       const tileUrl = (t: string) =>
@@ -390,7 +439,7 @@ export class MiniMapBox extends BaseElement {
     });
 
     // Add marker to map
-    const marker = L.marker([lat, lon], { icon: customIcon }).addTo(map);
+    const marker = L.marker(this._displayLatLng(lat, lon), { icon: customIcon }).addTo(map);
     // Add event listener to marker
     if (this.mapPopup) {
       marker.on('click', () => {

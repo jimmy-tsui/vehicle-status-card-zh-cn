@@ -10,9 +10,14 @@ const tiandituHelper = html`在<a href="https://console.tianditu.gov.cn/" target
     >天地图控制台</a
   >申请「浏览器端」密钥（tk），免费额度约 1 万次/天。`;
 
+const gaodeHelper = html`在<a href="https://console.amap.com/dev/key/app" target="_blank" rel="noreferrer"
+    >高德开放平台</a
+  >创建「Web 服务」Key（仅用于"逆地理编码"显示地址；底图本身无需密钥）。`;
+
 const MAP_SOURCE_OPTIONS = [
   { value: 'openfreemap', label: 'OpenFreeMap（海外，默认）' },
   { value: 'tianditu', label: '天地图（国内，需密钥）' },
+  { value: 'gaode', label: '高德地图（国内，坐标已纠偏，底图免密钥）' },
 ] as const;
 
 export const BASE_MAP_SCHEMA = [
@@ -111,6 +116,14 @@ export const BASE_MAP_CONFIG_SCHEMA = (data: any) => {
           helper: tiandituHelper,
           type: 'string',
           disabled: noEntity || data?.map_source !== 'tianditu',
+          required: false,
+        },
+        {
+          name: 'gaode_key',
+          label: '高德 Web 服务 Key（逆地理编码，可选）',
+          helper: gaodeHelper,
+          type: 'string',
+          disabled: noEntity || data?.map_source !== 'gaode',
           required: false,
         },
         {

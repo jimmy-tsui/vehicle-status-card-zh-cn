@@ -4,7 +4,7 @@ import { EntityConfig } from '../entity-config';
 export type LABEL_MODE = 'name' | 'state' | 'attribute' | 'icon';
 export type HISTORY_PERIOD = 'today' | 'yesterday';
 export type MAP_THEME_MODE = 'auto' | 'dark' | 'light';
-export type MAP_SOURCE = 'openfreemap' | 'tianditu';
+export type MAP_SOURCE = 'openfreemap' | 'tianditu' | 'gaode';
 
 export interface Address {
   streetNumber?: string;
@@ -37,11 +37,15 @@ export interface MiniMapBaseConfig {
   google_api_key?: string;
   /**
    * Base map source. `openfreemap` (default) works globally,
-   * `tianditu` uses Tianditu tiles (China-friendly, requires `tianditu_key`).
+   * `tianditu` uses Tianditu tiles (China-friendly, requires `tianditu_key`),
+   * `gaode` uses Amap/Gaode tiles (GCJ-02; points are corrected WGS-84→GCJ-02
+   * in the card so the GPS marker stays offset-free).
    */
   map_source?: MAP_SOURCE;
   /** Tianditu service key (tk), required when `map_source: 'tianditu'` */
   tianditu_key?: string;
+  /** Amap/Gaode Web Service key, used for reverse geocoding when `map_source: 'gaode'` */
+  gaode_key?: string;
 }
 
 export interface MinimapLayoutConfig {

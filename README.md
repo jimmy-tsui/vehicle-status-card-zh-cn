@@ -20,7 +20,7 @@
 - **小地图（Mini Map）**：内置地图，实时跟踪 `device_tracker` 实体。
 - **按钮卡片（Button Cards）**：设置主/次按钮、图标、通知徽标，以及默认/自定义子卡片，用于与车辆实体交互。
 - **布局配置（Layout）**：自定义布局、主题、行/列数与滑动（swipe）行为。
-- **🇨🇳 国内地图源**：内置 **天地图** 源，国内网络下加载更流畅（详见 [小地图 - 地图源](#小地图-mini-map)）。
+- **🇨🇳 国内地图源**：内置 **高德（无偏移纠偏）/ 天地图 / OpenFreeMap** 多底图一键切换，并内置国内逆地理编码（详见 [小地图 - 地图源](#小地图-mini-map)）。
 
 ## 目录
 
@@ -138,7 +138,31 @@ pnpm build      # lint + rollup，产物在 build/vehicle-status-card.js
 | `map_source`    | 说明                                                   | 是否需要密钥            |
 | --------------- | ------------------------------------------------------ | ---------------------- |
 | `openfreemap`   | 默认。OpenFreeMap 海外矢量瓦片，全球可用，无需密钥。    | 否                     |
-| `tianditu`      | **天地图**（国内）。瓦片来自 `tianditu.gov.cn`，国内加载快。 | 是（浏览器端 `tk`）    |
+| `tianditu`      | **天地图**（国内）。瓦片来自 `tianditu.gov.cn`，国内加载快，WGS84 无偏移。 | 是（浏览器端 `tk`）    |
+| `gaode`         | **高德地图**（国内）。官方矢量+注记瓦片，内置 **WGS84→GCJ-02 纠偏**，车标无偏移；底图免密钥。 | 仅逆地理编码（可选）    |
+
+### 高德地图（无偏移）
+
+高德官方瓦片本身是 **GCJ-02（火星坐标）**，官方并不提供 WGS84 瓦片。网上所谓的「高德 WGS84 底图」通常是**服务端重投影代理**（如 cntms 或自建纠偏 docker），而卡片是直连官方瓦片的，因此本卡片采用业界标准的**数据端纠偏**方案：
+
+> 渲染前自动把 GPS 点（WGS84）转为 GCJ-02，再叠加到高德官瓦上 —— 车标与地面位置**完全对齐、无偏移**，无需任何第三方服务。
+
+想在地图上显示中文地址时，可在 [高德开放平台](https://console.amap.com/dev/key/app) 申请 **「Web 服务」Key** 填入 `gaode_key`（仅用于逆地理编码；底图不需要 key）。未填时回退天地图 / OpenStreetMap 逆地理。
+
+示例 YAML（高德）：
+
+```yaml
+type: custom:vehicle-status-card
+mini_map:
+  device_tracker: device_tracker.your_device
+  map_source: gaode
+  gaode_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  # 可选：逆地理编码（中文地址）
+  map_zoom: 14
+  map_height: 150
+  enable_popup: true
+```
+
+### 天地图
 
 当选择「天地图」时，填入你的 **天地图浏览器端密钥（tk）**：
 
@@ -148,7 +172,7 @@ pnpm build      # lint + rollup，产物在 build/vehicle-status-card.js
 
 > 说明：天地图免费额度约 **1 万次/天**（按瓦片请求计），个人使用完全足够；天地图坐标即为 WGS84，与设备的 GPS 坐标一致，无需偏移。地址反查（点地图显示地址）同样优先使用天地图地理编码（国内网络更稳）。
 
-示例 YAML：
+示例 YAML（天地图）：
 
 ```yaml
 type: custom:vehicle-status-card
