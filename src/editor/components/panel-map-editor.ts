@@ -64,7 +64,7 @@ export class PanelMapEditor extends BaseEditor {
       return html``;
     }
     const isSingleMapCard = this._useSingleMapCard;
-    const header = isSingleMapCard ? 'Single Map Card Configuration' : 'Popup Card Configuration';
+    const header = isSingleMapCard ? '单张地图卡片配置' : '弹窗地图配置';
     if (this._subElementConfig) {
       return html` <vsc-sub-element-editor
         ._hass=${this.hass}
