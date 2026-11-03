@@ -1,0 +1,6 @@
+# Normalize line endings: keep workflow YAML and core text files as LF
+.github/workflows/* text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.ts text eol=lf
+*.md text
