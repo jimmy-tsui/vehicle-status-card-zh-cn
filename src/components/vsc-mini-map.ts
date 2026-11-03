@@ -375,21 +375,29 @@ export class MiniMapBox extends BaseElement {
     // Gaode/Amap official tiles (GCJ-02). No key needed for the tiles;
     // render positions are corrected WGS-84→GCJ-02 via `_displayLatLng`.
     if (this.mapSource === 'gaode') {
-      const tileUrl = (style: number) =>
-        `https://webrst01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=${style}&x={x}&y={y}&z={z}`;
+      // Amap road tiles: use the classic `webrd0X` hosts (the old `webrst0X`
+      // subdomain is dead: TLS/DNS fail for everyone). Note: Amap now returns an
+      // empty placeholder tile to unkeyed/datacenter requests, so whether the
+      // street base actually renders depends on the client's network.
+      const gaodeHosts = ['webrd01', 'webrd02', 'webrd03', 'webrd04'];
+      const tileUrls = (style: number) =>
+        gaodeHosts.map(
+          (h) =>
+            `https://${h}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=${style}&x={x}&y={y}&z={z}`,
+        );
       return {
         version: 8,
         sources: {
           gaode_base: {
             type: 'raster',
-            tiles: [tileUrl(7)],
+            tiles: tileUrls(7),
             tileSize: 256,
             minzoom: 1,
             maxzoom: 18,
           },
           gaode_label: {
             type: 'raster',
-            tiles: [tileUrl(8)],
+            tiles: tileUrls(8),
             tileSize: 256,
             minzoom: 1,
             maxzoom: 18,
