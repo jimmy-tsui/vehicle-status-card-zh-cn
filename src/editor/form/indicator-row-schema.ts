@@ -9,7 +9,7 @@ export const DISPLAY_OPTIONS_SCHEMA = (stateContentAllowed: boolean = true, enti
     {
       type: 'expandable',
       flatten: true,
-      title: 'Display Options',
+      title: '显示选项',
       iconPath: mdiTextShort,
       schema: [
         {
@@ -26,7 +26,7 @@ export const DISPLAY_OPTIONS_SCHEMA = (stateContentAllowed: boolean = true, enti
           ? [
               {
                 name: 'state_content',
-                label: 'State Content',
+                label: '状态内容',
                 selector: {
                   ui_state_content: {
                     entity_id: entity,
@@ -46,9 +46,9 @@ export const DISPLAY_OPTIONS_SCHEMA = (stateContentAllowed: boolean = true, enti
 export const ROW_NO_WRAP_SCHEMA = [
   {
     name: 'no_wrap',
-    label: 'Disable Wrap',
+    label: '禁止换行',
     type: 'boolean',
-    helper: 'Items will be in a single line and can be scrolled horizontally.',
+    helper: '条目在一行内排列，可横向滚动。',
     default: false,
   },
 ] as const;
@@ -56,7 +56,7 @@ export const ROW_NO_WRAP_SCHEMA = [
 export const ICON_SIZE_SCHEMA = [
   {
     name: 'icon_size',
-    label: 'Icon Size (px)',
+    label: '图标尺寸 (px)',
     required: false,
     default: 21,
     selector: { number: { min: 14, step: 1, mode: 'box', unit_of_measurement: 'px' } },
@@ -90,34 +90,34 @@ interface TemplateItem<T = string> {
 
 const BaseBooleanConfig: Record<string, Partial<BooleanItem>> = {
   ignore_global: {
-    label: 'Ignore Global Config',
-    helper: 'Ignore global appearance configuration for this item.',
+    label: '忽略全局配置',
+    helper: '忽略该条目的全局外观配置。',
   },
   show_entity_picture: {
-    label: 'Show Entity Picture',
+    label: '显示实体图片',
   },
   column_reverse: {
-    label: 'Column Reverse',
-    helper: 'Reverse the order of name and state',
+    label: '列反转',
+    helper: '反转名称与状态顺序',
   },
   row_reverse: {
-    label: 'Row Reverse',
-    helper: 'Reverse the order of icon and content',
+    label: '行反转',
+    helper: '反转图标与内容顺序',
   },
   include_state_template: {
-    label: 'Include State Template',
-    helper: 'Add state template result to content',
+    label: '包含状态模板',
+    helper: '将状态模板结果添加到内容中',
   },
 };
 
 const GlobalBooleanConfig: Record<string, Partial<BooleanItem>> = {
   global_column_reverse: {
-    label: 'Global Column Reverse',
-    helper: 'Reverse the order of name and state for all items in the row',
+    label: '全局列反转',
+    helper: '反转该行所有条目的名称与状态顺序',
   },
   global_row_reverse: {
-    label: 'Global Row Reverse',
-    helper: 'Reverse the order of icon and content for all items in the row',
+    label: '全局行反转',
+    helper: '反转该行所有条目的图标与内容顺序',
   },
 };
 
@@ -196,28 +196,28 @@ export const computeBooleanList = (keys?: BooleanKey[]) => {
 const TEMPLATES = [
   {
     name: 'visibility',
-    label: 'Visibility Template',
-    helper: 'Hide or show the indicator based on a template. The template should return true or false.',
+    label: '可见性模板',
+    helper: '基于模板控制指示器的显示/隐藏。模板需返回 true 或 false。',
   },
   {
     name: 'state_template',
-    label: 'State Template',
-    helper: 'Customize the state based on a template. The template should return a valid state name.',
+    label: '状态模板',
+    helper: '基于模板自定义状态。模板需返回合法的状态名称。',
   },
   {
     name: 'icon_template',
-    label: 'Icon Template',
-    helper: 'Template to override the icon. The template should return a valid icon name.',
+    label: '图标模板',
+    helper: '通过模板覆盖图标。模板需返回合法的图标名称。',
   },
   {
     name: 'color_template',
-    label: 'Color Template',
-    helper: 'Template to override the color. The template should return a valid CSS color (name, hex, rgb, hsl, etc.).',
+    label: '颜色模板',
+    helper: '通过模板覆盖颜色。模板需返回合法的 CSS 颜色（名称、hex、rgb、hsl 等）。',
   },
   {
     name: 'row_visibility',
-    label: 'Row Visibility Template',
-    helper: 'Hide or show the entire row based on a template. False result hides whole row.',
+    label: '行可见性模板',
+    helper: '基于模板控制整行的显示/隐藏。返回 false 时隐藏整行。',
   },
 ];
 
@@ -250,10 +250,10 @@ export const computeTemplateSchema = (type?: TemplateKey[], exclude?: TemplateKe
 
 export const ROW_ICON_SIZE_NO_WRAP_SCHEMA = [
   {
-    title: 'Global Appearance (optional)',
+    title: '全局外观（可选）',
     type: 'expandable',
     iconPath: mdiPalette,
-    helper: 'These options affect all items, unless overridden on the item itself.',
+    helper: '这些选项作用于所有条目，除非条目自身已覆盖设置。',
     flatten: true,
     schema: [
       {
@@ -261,8 +261,8 @@ export const ROW_ICON_SIZE_NO_WRAP_SCHEMA = [
         schema: [
           {
             name: 'global_icon_size',
-            label: 'Icon Size (px)',
-            helper: 'Size for all icons in the row.',
+            label: '图标尺寸 (px)',
+            helper: '该行所有图标的尺寸。',
             required: false,
             default: 21,
             selector: { number: { min: 14, step: 1, mode: 'box', unit_of_measurement: 'px' } },
@@ -274,7 +274,7 @@ export const ROW_ICON_SIZE_NO_WRAP_SCHEMA = [
       {
         type: 'expandable',
         flatten: true,
-        title: 'Extra Templates (Advanced)',
+        title: '附加模板（高级）',
         schema: [...computeTemplateSchema(['row_visibility'])],
       },
     ],
@@ -283,7 +283,7 @@ export const ROW_ICON_SIZE_NO_WRAP_SCHEMA = [
 
 export const ROW_INTERACTON_BASE_SCHEMA = [
   {
-    title: 'Interactions',
+    title: '交互',
     type: 'expandable',
     flatten: true,
     iconPath: mdiGestureTap,
@@ -334,7 +334,7 @@ export const ENTITY_SINGLE_TYPE_SCHEMA = (data: any) => {
   return [
     { name: 'entity', required: true, selector: { entity: {} } },
     {
-      title: 'Appearance & Content',
+      title: '外观与内容',
       type: 'expandable',
       flatten: true,
       iconPath: mdiPalette,
@@ -348,7 +348,7 @@ export const ENTITY_SINGLE_TYPE_SCHEMA = (data: any) => {
 export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: boolean = false) =>
   [
     {
-      title: 'Group configuration',
+      title: '分组配置',
       type: 'expandable',
       flatten: true,
       expanded: false,
@@ -356,15 +356,15 @@ export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: b
       schema: [
         {
           name: 'name',
-          label: 'Group Name',
+          label: '分组名称',
           selector: {
             text: {},
           },
         },
         {
           name: 'entity',
-          label: 'Group Entity (optional)',
-          helper: 'This entity is used to fetch the state content',
+          label: '分组实体（可选）',
+          helper: '此实体用于获取状态内容',
           required: false,
           selector: {
             entity: {},
@@ -375,7 +375,7 @@ export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: b
           ? [
               {
                 name: 'ignore_group_members',
-                label: 'Ignore Group Members',
+                label: '忽略分组内成员',
                 type: 'boolean',
                 helper:
                   'Do not include entities from the group entity attribute. Only use entities defined in the items.',
@@ -386,7 +386,7 @@ export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: b
       ],
     },
     {
-      title: 'Appearance & Content',
+      title: '外观与内容',
       type: 'expandable',
       flatten: true,
       iconPath: mdiPalette,
@@ -425,8 +425,8 @@ export const ROW_GROUP_BASE_SCHEMA = (groupEntity?: string, isGroupEntityType: b
     },
     ...OPTIONAL_TEMPLATE_SCHEMA,
     {
-      title: 'Interactions',
-      helper: 'Tap action is ommitted for groups, as tapping the group will expand/collapse it.',
+      title: '交互',
+      helper: '分组不设置点击动作：点击分组用于展开/折叠。',
       type: 'expandable',
       flatten: true,
       iconPath: mdiGestureTap,
@@ -445,7 +445,7 @@ export const SUBGROUP_ENTITY_SCHEMA = (data: any) => {
       },
     },
     {
-      title: 'Content',
+      title: '内容',
       type: 'expandable',
       flatten: true,
       iconPath: mdiTextShort,
@@ -485,7 +485,7 @@ export const SUBGROUP_ENTITY_SCHEMA = (data: any) => {
 
 export const OPTIONAL_TEMPLATE_SCHEMA = [
   {
-    title: 'Extra Templates (Advanced)',
+    title: '附加模板（高级）',
     type: 'expandable',
     flatten: true,
     iconPath: mdiCodeJson,

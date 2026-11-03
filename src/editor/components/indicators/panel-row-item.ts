@@ -191,17 +191,17 @@ export class PanelIndicatorItem extends BaseEditor {
   private _renderFooterActions(): TemplateResult {
     const actions = [
       {
-        label: 'Add Item',
+        label: '添加条目',
         option: { type: 'add' },
         onClick: () => void 0,
       },
       {
-        label: 'Entity',
+        label: '实体',
         onClick: () => this._addItem('entity'),
         option: { type: 'add' },
       },
       {
-        label: 'Group',
+        label: '分组',
         onClick: () => this._addItem('group'),
         option: { type: 'add' },
       },
@@ -301,7 +301,7 @@ export class PanelIndicatorItem extends BaseEditor {
         break;
       case 'delete':
         if (index === null) return;
-        let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this item?', 'Delete');
+        let confirm = await showConfirmDialog(this, '确定要删除该条目吗？', '删除');
         if (!confirm) return;
         const newItems = this._items?.concat() || [];
         newItems.splice(index, 1);

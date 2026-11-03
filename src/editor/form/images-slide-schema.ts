@@ -25,7 +25,7 @@ export const ImageSchema = [
     name: 'action',
     required: false,
     type: 'expandable',
-    title: 'Interaction',
+    title: '交互',
     iconPath: mdiGestureTap,
     flatten: false,
     schema: [
@@ -44,8 +44,8 @@ const SWIPE_EFFECT_OPTIONS = ['slide', 'fade', 'coverflow'] as const;
 export const SLIDE_SIZE_SCHEMA = [
   {
     type: 'expandable',
-    title: 'Slide Size',
-    helper: 'This set size for each image slide, which affects the slides per view',
+    title: '图片尺寸',
+    helper: '此设置决定每张图片的尺寸，从而影响每屏显示的图片数量',
     expanded: true,
     iconPath: mdiImage,
     schema: [
@@ -55,13 +55,13 @@ export const SLIDE_SIZE_SCHEMA = [
         schema: [
           {
             name: 'height',
-            helper: 'Height of slide (px)',
+            helper: '图片高度 (px)',
             default: 150,
             selector: { number: { unit_of_measurement: 'px' } },
           },
           {
             name: 'width',
-            helper: 'Width of slide (px)',
+            helper: '图片宽度 (px)',
             default: 450,
             selector: { number: { unit_of_measurement: 'px' } },
           },
@@ -76,7 +76,7 @@ export const SWIPE_BEHAVIOR_SCHEMA = (data: any) => {
   return [
     {
       type: 'expandable',
-      title: 'Swipe Behavior',
+      title: '滑动行为',
       expanded: false,
       iconPath: mdiGestureSwipe,
       schema: [
@@ -99,34 +99,34 @@ export const SWIPE_BEHAVIOR_SCHEMA = (data: any) => {
             },
             {
               name: 'speed',
-              label: 'Speed (ms)',
-              helper: 'Transition speed between images',
+              label: '速度 (ms)',
+              helper: '图片切换动画速度',
               default: 500,
               selector: { number: { min: 100, mode: 'slider', step: 50, unit_of_measurement: 'ms' } },
             },
             {
               name: 'loop',
-              label: 'Loop',
+              label: '循环',
               default: false,
               type: 'boolean',
             },
             {
               name: 'hide_pagination',
-              label: 'Hide Pagination',
+              label: '隐藏分页',
               default: false,
               type: 'boolean',
             },
             {
               name: 'autoplay',
-              label: 'Autoplay',
-              helper: 'Automatically start sliding',
+              label: '自动播放',
+              helper: '自动开始轮播',
               type: 'boolean',
               default: false,
             },
             {
               name: 'delay',
-              label: 'Delay (ms)',
-              helper: 'Delay between transitions',
+              label: '延迟 (ms)',
+              helper: '切换之间的延迟',
               default: 3000,
               selector: { number: { min: 500, mode: 'slider', step: 50, unit_of_measurement: 'ms' } },
               disabled: !isAutoplay,
@@ -142,7 +142,7 @@ export const IMAGES_LAYOUT_SCHEMA = (data: any, name: string = '') =>
   [
     {
       name,
-      title: 'Images Section',
+      title: '图片区块',
       type: 'expandable',
       flatten: name === '' ? true : false,
       iconPath: mdiImage,

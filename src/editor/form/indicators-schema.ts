@@ -18,7 +18,7 @@ export const singleIndicatorSchema = memoizeOne(
       },
       {
         name: 'attribute',
-        label: 'Attribute',
+        label: '属性',
         selector: {
           attribute: {
             entity_id: entity,
@@ -38,38 +38,38 @@ export const singleApparenceSchema = [
     name: '',
     type: 'expandable',
     iconPath: mdiPalette,
-    title: 'Appearance',
+    title: '外观',
     schema: [
       {
         name: 'state_color',
-        label: 'State Color',
+        label: '状态颜色',
         type: 'boolean',
         default: false,
-        helper: 'Use the state color of the entity to color the indicator.',
+        helper: '使用实体状态颜色为指示器着色。',
       },
       {
         name: 'visibility',
-        label: 'Visibility Template',
+        label: '可见性模板',
         selector: { template: {} },
-        helper: 'Hide or show the indicator based on a template. The template should return true or false.',
+        helper: '基于模板控制指示器的显示/隐藏。模板需返回 true 或 false。',
       },
       {
         name: 'icon_template',
-        label: 'Icon Template',
+        label: '图标模板',
         selector: { template: {} },
-        helper: 'Customize the icon based on a template. The template should return a valid icon name.',
+        helper: '基于模板自定义图标。模板需返回合法的图标名称（mdi: 格式）。',
       },
       {
         name: 'color',
-        label: 'Color Template',
+        label: '颜色模板',
         selector: { template: {} },
-        helper: 'Customize the color based on a template. The template should return a valid color name or hex code.',
+        helper: '基于模板自定义颜色。模板需返回合法的颜色名称或十六进制色值。',
       },
       {
         name: 'state_template',
-        label: 'State Template',
+        label: '状态模板',
         selector: { template: {} },
-        helper: 'Customize the state based on a template. The template should return a valid state name.',
+        helper: '基于模板自定义状态。模板需返回合法的状态名称。',
       },
     ],
   },
@@ -79,7 +79,7 @@ export const singleActionSchema = memoizeOne(() => [
   {
     name: 'action_config',
     type: 'expandable',
-    title: 'Action Configuration',
+    title: '动作配置',
     iconPath: mdiGestureTap,
     schema: [...computeOptionalActionSchema()],
   },
@@ -92,12 +92,12 @@ export const mainGroupSchema = [
     schema: [
       {
         name: 'name',
-        label: 'Group Name',
+        label: '分组名称',
         selector: { text: {} },
       },
       {
         name: 'icon',
-        label: 'Group Icon',
+        label: '分组图标',
         selector: { icon: {} },
       },
     ],
@@ -109,19 +109,19 @@ export const groupApparenceSchema = [
     name: '',
     type: 'expandable',
     iconPath: mdiPalette,
-    title: 'Appearance',
+    title: '外观',
     schema: [
       {
         name: 'visibility',
-        label: 'Visibility Template',
+        label: '可见性模板',
         selector: { template: {} },
-        helper: 'Hide or show the indicator based on a template. The template should return true or false.',
+        helper: '基于模板控制指示器的显示/隐藏。模板需返回 true 或 false。',
       },
       {
         name: 'color',
-        label: 'Color Template',
+        label: '颜色模板',
         selector: { template: {} },
-        helper: 'Customize the color based on a template. The template should return a valid color name or hex code.',
+        helper: '基于模板自定义颜色。模板需返回合法的颜色名称或十六进制色值。',
       },
     ],
   },
@@ -136,7 +136,7 @@ export const subGroupItemSchema = memoizeOne(
         schema: [
           {
             name: 'name',
-            label: 'Item name',
+            label: '条目名称',
             required: false,
             type: 'string',
             default: '',
@@ -147,30 +147,30 @@ export const subGroupItemSchema = memoizeOne(
       {
         name: '',
         type: 'expandable',
-        title: 'Extra templates',
+        title: '附加模板',
         schema: [
           {
             name: 'state_color',
-            label: 'State Color',
+            label: '状态颜色',
             type: 'boolean',
             default: false,
-            helper: 'Use the state color of the entity to color the indicator.',
+            helper: '使用实体状态颜色为指示器着色。',
           },
           {
             name: 'icon_template',
-            label: 'Icon Template',
+            label: '图标模板',
             selector: { template: {} },
-            helper: 'Customize the icon based on a template. The template should return a valid icon name.',
+            helper: '基于模板自定义图标。模板需返回合法的图标名称（mdi: 格式）。',
           },
           {
             name: 'state_template',
-            label: 'State Template',
+            label: '状态模板',
             selector: { template: {} },
-            helper: 'Customize the state based on a template',
+            helper: '基于模板自定义状态',
           },
           {
             name: 'color',
-            label: 'Color Template',
+            label: '颜色模板',
             selector: { template: {} },
           },
         ] as const,
@@ -178,7 +178,7 @@ export const subGroupItemSchema = memoizeOne(
       {
         name: 'action_config',
         type: 'expandable',
-        title: 'Interaction Configuration',
+        title: '交互配置',
         iconPath: mdiGestureTap,
         schema: (['tap_action', 'hold_action', 'double_tap_action'] as const).map((action) => ({
           name: action,

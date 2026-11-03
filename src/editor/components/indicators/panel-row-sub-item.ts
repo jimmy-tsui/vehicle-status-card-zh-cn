@@ -100,7 +100,7 @@ export class PanelRowSubItem extends BaseEditor {
       return html``;
     }
     const name = this._computeItemLabel(this._subItemConfig);
-    const headerLabel = `Row ${this.rowIndex + 1} › ${this.isGroup ? 'Group' : 'Entity'}`;
+    const headerLabel = `Row ${this.rowIndex + 1} › ${this.isGroup ? '分组' : '实体'}`;
     return html`
       <sub-editor-header
         ?hidden=${this._groupItemIndex !== null}
@@ -151,7 +151,7 @@ export class PanelRowSubItem extends BaseEditor {
     const groupEntity = isGroupEntityType ? this._hass.states[config.entity!] : undefined;
 
     const itemsWrapper = Create.ExpansionPanel({
-      options: { header: 'Items', icon: 'mdi:format-list-bulleted', elId: 'itemsWrapper' },
+      options: { header: '条目', icon: 'mdi:format-list-bulleted', elId: 'itemsWrapper' },
       expandedWillChange: (ev: any) => this._onExpandChanged(ev),
       content: html` <panel-row-sub-group-item
         id="group-items-editor"

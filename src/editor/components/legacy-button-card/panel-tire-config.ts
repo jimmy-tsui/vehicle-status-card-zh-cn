@@ -65,7 +65,7 @@ export class PanelTireConfig extends BaseEditor {
 
     return Create.ExpansionPanel({
       content,
-      options: { header: 'Background image', secondary: 'Change the background image of the tire card' },
+      options: { header: '背景图片', secondary: 'Change the background image of the tire card' },
     });
   }
 
@@ -82,8 +82,8 @@ export class PanelTireConfig extends BaseEditor {
     return Create.ExpansionPanel({
       content,
       options: {
-        header: 'Size & Position',
-        secondary: 'Change the size and position of the tire card',
+        header: '尺寸与位置',
+        secondary: '调整轮胎卡片的尺寸与位置',
       },
     });
   }
@@ -103,8 +103,8 @@ export class PanelTireConfig extends BaseEditor {
     return Create.ExpansionPanel({
       content,
       options: {
-        header: 'Tire Entities',
-        secondary: 'Configure the entities for each tire position',
+        header: '轮胎实体',
+        secondary: '配置每个轮胎位置的实体',
       },
     });
   }

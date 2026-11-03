@@ -11,11 +11,11 @@ const DOC_URL = 'https://github.com/ngocjohn/vehicle-status-card?tab=readme-ov-f
 
 export const CONFIG_TYPES = {
   name: 'Config type',
-  description: 'Select the type of configuration you want to edit.',
+  description: '选择要编辑的配置类型。',
   options: {
     indicators: {
       name: 'Indicators',
-      description: 'Display individual or grouped entity states as indicators.',
+      description: '以指示器形式显示单个或分组的实体状态。',
       doc: `${DOC_URL}indicators-configuration`,
       subpanels: {
         single: makePanel(
@@ -30,7 +30,7 @@ export const CONFIG_TYPES = {
     },
     range_info: {
       name: 'Range progress bar',
-      description: 'Show progress bars for fuel, battery, or any entity with a range state.',
+      description: '为燃油、电量或任意带里程状态的实体显示进度条。',
       doc: `${DOC_URL}range-info-bars`,
       subpanels: {
         rangeIndicator: makePanel(
@@ -41,31 +41,31 @@ export const CONFIG_TYPES = {
     },
     images: {
       name: 'Images',
-      description: 'Add images for slides and set intervals for auto-changing.',
+      description: '添加轮播图片，并设置自动切换的间隔时间。',
       doc: `${DOC_URL}image-slides`,
     },
     mini_map: {
       name: 'Mini Map',
-      description: 'Track device_tracker entities on a mini map.',
+      description: '在小地图上跟踪 device_tracker 实体。',
       doc: `${DOC_URL}mini-map`,
     },
     buttons: {
       name: 'Buttons and sub-cards',
-      description: 'Configure button appearance, notifications, and default or custom cards.',
+      description: '配置按钮外观、通知以及默认/自定义卡片。',
       doc: `${DOC_URL}button-card`,
       subpanels: {
         button: makePanel(
-          'Button',
-          'Select the button type between default and action. Default opens a card, action triggers an action.'
+          '按钮',
+          '在默认卡片与动作类型之间选择按钮类型。默认会打开卡片，动作类型会触发一个动作。'
         ),
-        default_cards: makePanel('Default Card', 'To change order of sections, click and drag the handle.'),
-        custom_cards: makePanel('Custom Card', 'Add custom cards to display. Use Lovelace card configuration.'),
-        tire_card: makePanel('Tire Card', 'Set the title and items for the tire card.'),
+        default_cards: makePanel('默认卡片', '要调整区块顺序，请按住手柄拖拽。'),
+        custom_cards: makePanel('自定义卡片', '添加要显示的自定义卡片，使用 Lovelace 卡片配置。'),
+        tire_card: makePanel('轮胎卡片', '设置轮胎卡片的标题与条目。'),
       },
     },
     layout_config: {
       name: 'Layout Configuration',
-      description: 'Set the card’s layout, theme, and visibility of sections.',
+      description: '设置卡片的布局、主题及各区块的可见性。',
     },
   },
 };
@@ -130,14 +130,14 @@ export enum RANGE_ACTIONS {
 }
 
 const BUTTON_TYPE = [
-  { value: 'default', label: 'Default' },
-  { value: 'action', label: 'Action' },
+  { value: 'default', label: '默认' },
+  { value: 'action', label: '动作' },
 ];
 
 const CARD_TYPES = [
-  { value: 'default', label: 'Default Card' },
-  { value: 'custom', label: 'Custom Lovelace' },
-  { value: 'tire', label: 'Tire Card' },
+  { value: 'default', label: '默认卡片' },
+  { value: 'custom', label: '自定义 Lovelace' },
+  { value: 'tire', label: '轮胎卡片' },
 ];
 
 const NEW_BUTTON_CONFIG = {
@@ -161,9 +161,9 @@ const NEW_BUTTON_CONFIG = {
 };
 
 enum ALERT_INFO {
-  MAPTILER_GET = 'How to get Maptiler API Key?',
+  MAPTILER_GET = '如何获取 MapTiler API 密钥？',
   MAPTILER_DOC_LINK = 'https://github.com/ngocjohn/vehicle-status-card/wiki/Mini-map#maptiler-popup',
-  MAP_SINGLE_CARD = 'Configuration is same as for HA Default Map Card',
+  MAP_SINGLE_CARD = '配置与 HA 默认地图卡片相同',
   MAP_SINGLE_LINK = 'https://www.home-assistant.io/dashboards/map/',
   IDICATOR_LEGACY = 'More info in the wiki. Or migrate to the new format.',
   INDICATOR_ROW_URL = 'https://github.com/ngocjohn/vehicle-status-card/wiki/Indicators-Configuration',

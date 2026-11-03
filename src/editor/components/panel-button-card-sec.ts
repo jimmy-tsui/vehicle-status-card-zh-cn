@@ -77,7 +77,7 @@ export class PanelButtonCardSec extends BaseEditor {
           ${hiddenBtns.length > 0
             ? Create.SectionPanel([
                 {
-                  title: 'Hidden Buttons',
+                  title: '隐藏的按钮',
                   content: html`
                     <div class="button-grid-list" style=${this._computeGridColumns()}>
                       ${hiddenBtns.map((btn, index) => {
@@ -105,7 +105,7 @@ export class PanelButtonCardSec extends BaseEditor {
     let label: string = `Button ${index + 1}`;
     let content: string | undefined = name;
     if (!content && !entity) {
-      content = 'Button';
+      content = '按钮';
       label = `#${index + 1}`;
     } else if (!content && entity) {
       const stateObj = this._hass.states[entity];
@@ -212,7 +212,7 @@ export class PanelButtonCardSec extends BaseEditor {
   };
 
   private _deleteButton = async (index: number) => {
-    let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this button?', 'Delete');
+    let confirm = await showConfirmDialog(this, '确定要删除该按钮吗？', '删除');
     if (!confirm) return;
     const currentList = [...(this._buttonList || [])];
     currentList.splice(index, 1);

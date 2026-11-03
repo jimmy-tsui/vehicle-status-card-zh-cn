@@ -100,7 +100,7 @@ export class PanelImagesPreview extends BaseEditor {
   private async _editItem(index: number) {
     const image = this.images![index];
     const newImage = await showFormDialog(this, {
-      title: 'Edit Image',
+      title: '编辑图片',
       schema: [...ImageSchema],
       data: image,
       submitText: 'Update',
@@ -123,7 +123,7 @@ export class PanelImagesPreview extends BaseEditor {
     if (!this.images) {
       return;
     }
-    let confirmed = await showConfirmDialog(this, 'Are you sure you want to delete this image?', 'Delete');
+    let confirmed = await showConfirmDialog(this, '确定要删除该图片吗？', '删除');
     if (!confirmed) {
       return;
     }

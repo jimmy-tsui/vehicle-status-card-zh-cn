@@ -206,9 +206,9 @@ export class PanelButtonCardMain extends ButtonCardBaseEditor {
       </div>
     `;
     const expansionOpts = {
-      header: 'Sub Card Configuration',
+      header: '子卡片配置',
       icon: 'mdi:cards-outline',
-      secondary: 'Select a sub-card type to configure',
+      secondary: '选择要配置的子卡片类型',
     };
 
     return Create.ExpansionPanel({

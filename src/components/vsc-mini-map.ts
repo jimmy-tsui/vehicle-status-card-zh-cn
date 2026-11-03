@@ -15,7 +15,7 @@ import maplibreStyle from 'maplibre-gl/dist/maplibre-gl.css';
 import { COMPONENT } from '../constants/const';
 import { DecoratedMarker } from '../ha/common/map/decorated_marker';
 import { showToast } from '../ha/panels/lovelace/toast';
-import { Address, MapData, MiniMapConfig } from '../types/config';
+import { Address, MAP_SOURCE, MapData, MiniMapConfig } from '../types/config';
 import { SECTION } from '../types/section';
 import { isSafari, randomHexColor } from '../utils';
 import { BaseElement } from '../utils/base-element';
@@ -85,6 +85,14 @@ export class MiniMapBox extends BaseElement {
 
   private get useMapTiler(): boolean {
     return !!this.mapConfig.maptiler_api_key;
+  }
+
+  private get mapSource(): MAP_SOURCE {
+    return this.mapConfig?.map_source ?? 'openfreemap';
+  }
+
+  private get tiandituKey(): string | undefined {
+    return this.mapConfig?.tianditu_key;
   }
 
   private get userLocationEnabled(): boolean {
@@ -334,9 +342,45 @@ export class MiniMapBox extends BaseElement {
 
   private _addMaplibreLayer(map: L.Map): void {
     console.log('Adding Maplibre layer to map...');
-    maplibreGL({
-      style: 'https://tiles.openfreemap.org/styles/positron',
-    }).addTo(map);
+    maplibreGL({ style: this._buildMapStyle() }).addTo(map);
+  }
+
+  /**
+   * Build the map style: OpenFreeMap vector style by default; when
+   * `map_source: 'tianditu'` and a Tianditu key is set, serve a raster style
+   * built from Tianditu WGS84 tiles (`vec_w` base + `cva_w` labels),
+   * which works well on domestic (China) networks.
+   */
+  private _buildMapStyle(): any {
+    const key = this.tiandituKey;
+    if (this.mapSource === 'tianditu' && !!key) {
+      const tileUrl = (t: string) =>
+        `https://t0.tianditu.gov.cn/DataServer?T=${t}&x={x}&y={y}&l={z}&tk=${key}`;
+      return {
+        version: 8,
+        sources: {
+          tianditu_base: {
+            type: 'raster',
+            tiles: [tileUrl('vec_w')],
+            tileSize: 256,
+            minzoom: 1,
+            maxzoom: 18,
+          },
+          tianditu_label: {
+            type: 'raster',
+            tiles: [tileUrl('cva_w')],
+            tileSize: 256,
+            minzoom: 1,
+            maxzoom: 18,
+          },
+        },
+        layers: [
+          { id: 'tianditu-base', type: 'raster', source: 'tianditu_base' },
+          { id: 'tianditu-label', type: 'raster', source: 'tianditu_label' },
+        ],
+      };
+    }
+    return 'https://tiles.openfreemap.org/styles/positron';
   }
 
   private _createMarker(map: L.Map): L.Marker {
@@ -361,9 +405,9 @@ export class MiniMapBox extends BaseElement {
     const { lat, lng: lon } = latLon;
     const address = await _getMapAddress(this.mapConfig, lat, lon);
     if (address) {
-      return `<b>You are here</b><br>${address.streetName || ''}<br>${address.sublocality || ''} ${address.city || ''}`;
+      return `<b>你在这里</b><br>${address.streetName || ''}<br>${address.sublocality || ''} ${address.city || ''}`;
     }
-    return `<b>You are here</b><br>Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)}`;
+    return `<b>你在这里</b><br>Lat: ${lat.toFixed(5)}, Lon: ${lon.toFixed(5)}`;
   };
 
   private resetMap() {

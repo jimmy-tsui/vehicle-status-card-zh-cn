@@ -13,7 +13,7 @@ export const BASE_BUTTON_SCHEMA = memoizeOne(
         schema: [
           {
             name: 'button_type',
-            label: 'Button Type',
+            label: '按钮类型',
             default: 'default',
             selector: {
               select: {
@@ -24,7 +24,7 @@ export const BASE_BUTTON_SCHEMA = memoizeOne(
           },
           {
             name: 'card_type',
-            label: 'Card Type',
+            label: '卡片类型',
             default: 'default',
             disabled: typeDisabled,
             selector: {
@@ -46,7 +46,7 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
         name: 'button',
         type: 'expandable',
         iconPath: mdiPalette,
-        title: 'Button Appearance',
+        title: '按钮外观',
         schema: [
           {
             name: '',
@@ -54,12 +54,12 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
             schema: [
               {
                 name: 'primary',
-                label: 'Primary title',
+                label: '主标题',
                 selector: { text: { type: 'text' } },
               },
               {
                 name: 'icon',
-                label: 'Icon',
+                label: '图标',
                 selector: { icon: {} },
               },
             ],
@@ -67,7 +67,7 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
           {
             name: 'secondary',
             type: 'expandable',
-            title: 'Secondary Info',
+            title: '次要信息',
             expanded: true,
             schema: [
               {
@@ -80,15 +80,15 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
                   },
                   {
                     name: 'attribute',
-                    label: 'Attribute',
+                    label: '属性',
                     selector: { attribute: { entity_id: secondEntity } },
                   },
                 ],
               },
               {
                 name: 'state_template',
-                label: 'State template',
-                helper: 'Template for the secondary info state',
+                label: '状态模板',
+                helper: '次要信息状态的模板',
                 selector: { template: {} },
               },
             ],
@@ -96,11 +96,11 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
           {
             name: '',
             type: 'expandable',
-            title: 'Advanced Options',
+            title: '高级选项',
             schema: [
               {
                 name: 'state_color',
-                label: 'State color',
+                label: '状态颜色',
                 type: 'boolean',
                 default: false,
                 disabled: secondEntity === undefined || secondEntity === '',
@@ -109,13 +109,13 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
               },
               {
                 name: 'color',
-                label: 'Color icon template',
-                helper: 'Template for the icon color',
+                label: '图标颜色模板',
+                helper: '图标颜色模板',
                 selector: { template: {} },
               },
               {
                 name: 'picture_template',
-                label: 'Picture & Icon template',
+                label: '图片与图标模板',
                 helper:
                   'Result starts with `http` or "/" will be treated as image URL, otherwise as icon. (this change picked icon)',
                 selector: { template: {} },
@@ -123,24 +123,24 @@ export const BASE_BUTTON_APPEARANCE_SCHEMA = memoizeOne(
               {
                 name: '',
                 type: 'expandable',
-                title: 'Notification Badge Options',
+                title: '通知徽标选项',
                 schema: [
                   {
                     name: 'notify',
-                    label: 'Notification Badge visibility template',
-                    helper: 'Use Jinja2 template with result `true` to display notification badge',
+                    label: '通知徽标可见性模板',
+                    helper: '使用 Jinja2 模板，结果为 `true` 时显示通知徽标',
                     selector: { template: {} },
                   },
                   {
                     name: 'notify_color',
-                    label: 'Notification Badge color template',
-                    helper: 'Use Jinja2 template to set the badge color',
+                    label: '通知徽标颜色模板',
+                    helper: '使用 Jinja2 模板设置徽标颜色',
                     selector: { template: {} },
                   },
                   {
                     name: 'notify_icon',
-                    label: 'Notification Badge icon template',
-                    helper: 'Template with result in `mdi:` format to set the badge icon',
+                    label: '通知徽标图标模板',
+                    helper: '模板结果需为 `mdi:` 格式，用于设置徽标图标',
                     selector: { template: {} },
                   },
                 ],
@@ -157,12 +157,12 @@ export const BASE_BUTTON_ACTION_SCHEMA = [
     name: 'button_action',
     type: 'expandable',
     iconPath: mdiGestureTap,
-    title: 'Interaction',
+    title: '交互',
     schema: [
       {
         name: 'entity',
         selector: { entity: {} },
-        helper: 'Entity to control when the button is pressed',
+        helper: '用于控制按钮启用状态的实体',
       },
       ...computeOptionalActionSchema(),
     ],

@@ -1,548 +1,207 @@
+[![hacs][hacs-default]][hacs-default-link] [![hacs][hacs-validate]][hacs-url] ![Github last commit][git-last-commit-badge] ![git-download-all][git-download-all-badge] ![git-download-latest][git-download-latest-badge]
 
+# 🚘 Vehicle Status Card（车辆状态卡片 · 中文汉化版）
 
-
-[![hacs][hacs-default]][hacs-default-link] [![hacs][hacs-validate]][hacs-url] ![Github last commit][git-last-commit-badge] ![git-download-all][git-download-all-badge] ![git-download-latest][git-download-latest-badge] [![forum][forum-badge]][forum-url]
-
-# 🚘 Vehicle status card
+> 本仓库为 **Vehicle Status Card**（原版：https://github.com/ngocjohn/vehicle-status-card ）的中文化分支：
+> ① 编辑器与卡片界面中文；② 内置「国内 / 海外」地图源切换；③ 中文文档。
+> 原版英文文档见 [README.en.md](README.en.md)。
 
 <a href="#"><img src="https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/vehicle-status-header.gif" style="border-radius: 8px"></a>
 
+---
+
+这是为 Home Assistant 设计的 **车辆状态卡片**，用于展示车辆的详细信息：头部指示器、里程/续航进度条、交互按钮，以及跟踪 `device_tracker` 实体的小地图。卡片支持高度自定义，可展示多种类型的数据与布局。
+
+## 特性
+
+- **指示器（Indicators）**：在卡片头部以单个或分组的实体状态展示。
+- **里程信息条（Range Info）**：为油量、电量或任意带「里程/范围」状态的实体显示进度条。
+- **图片轮播（Images）**：上传或添加图片，可设置自动切换间隔。
+- **小地图（Mini Map）**：内置地图，实时跟踪 `device_tracker` 实体。
+- **按钮卡片（Button Cards）**：设置主/次按钮、图标、通知徽标，以及默认/自定义子卡片，用于与车辆实体交互。
+- **布局配置（Layout）**：自定义布局、主题、行/列数与滑动（swipe）行为。
+- **🇨🇳 国内地图源**：内置 **天地图** 源，国内网络下加载更流畅（详见 [小地图 - 地图源](#小地图-mini-map)）。
+
+## 目录
+
+- [安装](#安装)
+- [使用 UI 编辑器配置](#使用-ui-编辑器配置)
+- [指示器配置](#指示器配置-indicators)
+- [里程信息条](#里程信息条-range-info)
+- [图片轮播](#图片轮播-images)
+- [小地图（含国内地图源）](#小地图-mini-map)
+- [按钮卡片](#按钮卡片-button-card)
+- [常见问题与提示](#常见问题与提示)
 
 ---
 
-<p style="text-align: justify;">This is a custom Home Assistant card designed to display detailed status information about vehicles. It provides several features such as indicators, range progress bars, buttons for interacting with the vehicle's entities, and a mini map to track devices. The card is highly customizable with options to display various types of data and layouts.</p>
+# 安装
 
+## 通过 HACS 安装（推荐）
 
-## Features
+1. 若未安装 HACS，请参考 <https://hacs.xyz/docs/use/#getting-started-with-hacs>。
+2. 在 Home Assistant 中打开 HACS → 「前端」→ 右下角「+」添加自定义仓库：
+   - 仓库地址：`https://github.com/jimmy-tsui/vehicle-status-card-zh-cn`
+   - 类别：**插件（Plugin / Frontend）**
+3. 搜索 `Vehicle Status Card` 并点击下载。
+4. 强制刷新页面：`Ctrl` + `F5`（或 `Shift` + `⌘` + `R`）。
+5. 在仪表盘中添加「Vehicle Status Card」卡片。
 
-- **Indicators**: Display individual or grouped entity states on the header of the card.
-- **Range Indicators**: Show progress bars for fuel, battery, or any entity with a range state.
-- **Images**: Upload or add images for a slideshow display with customizable intervals.
-- **Mini Map**: Track `device_tracker` entities using an integrated mini map.
-- **Button Cards**: Set up primary/secondary buttons, icons, notifications, and default/custom cards to interact with vehicle entities.
-- **Layout Configuration**: Customize the layout, theme, rows, and swipe functionality for button grids.
+## 手动安装
 
-
-
-## Table of contents
-
-<details>
-    <summary>Table of contents</summary>
-
-- [Overview](#vehicle-status-card)
-- [Features](#features)
-- [Installation](#installation)
-  - [HACS Installation](#hacs-installation)
-  - [Manual Installation](#manual-installation)
-- [Configuration](#ui-editor)
-
-</details>
-
-# Installation
-
-## [HACS](https://hacs.xyz) (Home Assistant Community Store)
-
-Vehicle status card is available in HACS.
-
-Use this link to directly go to the repository in HACS
-
-[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=ngocjohn&repository=vehicle-status-card&category=plugin)
-
-or
-1. If HACS is not installed yet, download it following the instructions on [https://hacs.xyz/docs/use/#getting-started-with-hacs](https://hacs.xyz/docs/use/#getting-started-with-hacs)
-2. Open HACS in Home Assistant
-3. Search for `Vehicle status card`
-4. Click the download button. ⬇️
-1. Force refresh the Home Assistant page `Ctrl` + `F5` / `Shift` + `⌘` + `R`
-1. Add vehicle-status-card to your dashboard
-
-
-
-## Manual
-
-1. Download the [vehicle-status-card.js](https://github.com/ngocjohn/vehicle-status-card/releases/latest).
-2. Place the downloaded file on your Home Assistant machine in the `config/www` folder (when there is no `www` folder in the folder where your `configuration.yaml` file is, create it and place the file there).
-3. In Home Assistant go to `Configuration->Lovelace Dashboards->Resources` (When there is no `resources` tag on the `Lovelace Dashboard` page, enable advanced mode in your account settings, and retry this step).
-4. Add a new resource:
+1. 下载构建产物：`build/vehicle-status-card.js`（或从 Releases 下载最新的 `vehicle-status-card.js`）。
+2. 将文件放到 Home Assistant 的 `config/www` 目录（没有就创建 `www` 文件夹）。
+3. 打开「配置 → 仪表盘 → 资源」（找不到「资源」请在账户设置中开启高级模式），新增资源：
    - Url = `/local/vehicle-status-card.js`
-   - Resource type = `module`
-5. Force refresh the Home Assistant page `Ctrl` + `F5` / `Shift` + `⌘` + `R`.
-6. Add vehicle-status-card to your page.
+   - 资源类型 = `module`
+4. 强制刷新页面后添加卡片。
 
+## 本地开发/构建
 
+```bash
+pnpm install
+pnpm build      # lint + rollup，产物在 build/vehicle-status-card.js
+```
+
+---
 
 <!--README-CONTENT-START-->
 
-# UI Editor
+# 使用 UI 编辑器配置
 
-## Example Configuration
+本卡片完全支持 Home Assistant 的 **UI 卡片编辑器**，无需手写 YAML。
 
-The **Vehicle Status Card** is fully configurable using Home Assistant's **UI card editor**, with no need to manually edit YAML.
+新增卡片时，编辑器提供「生成示例（Generate Example）」功能：
 
-When adding a new card, the editor provides a **"Generate Example"** option that:
-
-- Selects random entities from your Home Assistant setup
-- Creates a complete sample configuration of the card
-- Provides a functional preview to help you get started quickly
-
-This feature makes it easy for both new and experienced users to explore the card's capabilities and layout options.
+- 从你的 Home Assistant 中随机挑选实体；
+- 生成一份完整示例配置；
+- 提供可直接预览的真实效果，帮助快速上手。
 
 ![YAML-Config](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-example.gif)
 
-# Indicators Configuration
+---
 
-The **Indicator Rows** format introduces a new way to organize and display indicators in the card.
-Instead of a flat list of items, indicators can now be grouped into rows. Each row can contain individual entities or groups of entities, allowing for more flexible layouts and better control over presentation.
+# 指示器配置（Indicators）
 
-| Name        | Type        | Requirement | Description                                                                                    |
-| ----------- | ----------- | ----------- | ---------------------------------------------------------------------------------------------- |
-| `row_items` | Object list | Required    | An array of items with config types: `entity`, `group`.                                        |
-| `alignment` | String      | Optional    | Controls how the items in the row are aligned (`default`, `start`, `center`, `end`, `justify`) |
-| `no_wrap`   | Boolean     | Optional    | Disable wrapping of items. Items will be in a single line and can be scrolled horizontally.    |
+**指示器行（Indicator Rows）** 用更灵活的方式组织卡片头部的指示器 —— 支持把指示器按 **行** 分组，每一行可以放单个实体或实体分组。
 
-## `entity`
+| 名称        | 类型     | 必填      | 说明                                                           |
+| ----------- | -------- | --------- | -------------------------------------------------------------- |
+| `row_items` | 对象数组 | 必填      | 条目数组，条目类型：`entity`（实体）、`group`（分组）。         |
+| `alignment` | 字符串   | 可选      | 行内条目对齐方式（`default`、`start`、`center`、`end`、`justify`） |
+| `no_wrap`   | 布尔     | 可选      | 禁止换行；条目单行排列并支持横向滚动。                         |
 
-Single indicators are used to display the state of a single entity, such as a sensor or binary sensor, on the card's header. These indicators are ideal for showcasing key information like vehicle battery level, engine status, or lock state. Each single indicator displays the current state of the entity with an optional icon for better visualization.
-
-For example, a single indicator can be used to show whether a car door is locked or unlocked, or to display the remaining battery percentage of the vehicle.
-
-## `group`
-
-This is useful when you want to track the status of related entities together, such as all door locks or all tire pressures. Group indicators display a summary view of the entities they contain, giving you a quick snapshot of their states.
-
-For instance, you could create a group indicator to monitor the lock status of all car doors, or to show the pressure levels of all tires at once. Group indicators help to keep the interface cleaner and more organized by bundling similar entities together.
+> 旧版 `indicators.single / indicators.group` 自 v1.16.0 起已弃用，请改用 `row_items`。
 
 ![Indicators Rows](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-indicators-row.gif)
 
-<details>
-<summary>Yaml Example</summary>
+---
 
-```yaml
-row_items:
-  - type: entity
-    entity: lock.car_lock
-    tap_action:
-      action: more-info
-  - type: entity
-    entity: sensor.car_state_of_charge
-    tap_action:
-      action: more-info
-  - type: group
-    name: Tires
-    con: mdi:car-tire-alert
-    items:
-      - entity: sensor.car_tire_pressure_front_left
-        name: Front left
-      - entity: sensor.car_tire_pressure_front_right
-        name: Front right
-      - entity: sensor.car_tire_pressure_rear_left
-        name: Rear left
-      - entity: sensor.car_tire_pressure_rear_right
-        name: Rear right
-no_wrap: true
-alignment: center
-```
+# 里程信息条（Range Info）
 
-</details>
+里程信息条用于展示「有量程」的实体进度，例如油量、电量或剩余续航里程，便于一眼掌握关键指标。
 
-<details>
-<summary>LEGACY CONFIG</summary>
+- **电量等级（Energy Level）**：显示剩余电量/油量，可为百分比或具体数值（公里、升）。
+- **里程等级（Range Level）**：显示当前剩余能量可行驶的距离，对新能源车尤其有用。
+- **充电状态实体（Charging Status）**：可选，显示当前是否在充电。
+- **充电目标线（Charge Target Line）**：在条上标出目标电量（如 80%）。
+- **进度颜色（Progress Color）**：自定义进度条颜色（如满=绿、中=黄、低=红）。
 
-> [!WARNING]
-> DEPRECATED FROM v.1.16.0 - USE 'INDICATOR_ROWS' INSTEAD
-
-## Single Indicators
-
-Single indicators are used to display the state of a single entity, such as a sensor or binary sensor, on the card's header. These indicators are ideal for showcasing key information like vehicle battery level, engine status, or lock state. Each single indicator displays the current state of the entity with an optional icon for better visualization.
-
-For example, a single indicator can be used to show whether a car door is locked or unlocked, or to display the remaining battery percentage of the vehicle.
-
-## Group Indicators
-
-Group indicators allow you toThis is useful when you want to track the status of related entities together, such as all door locks or all tire pressures. Group indicators display a summary view of the entities they contain, giving you a quick snapshot of their states.
-
-For instance, you could create a group indicator to monitor the lock status of all car doors, or to show the pressure levels of all tires at once. Group indicators help to keep the interface cleaner and more organized by bundling similar entities together.
-
-![Indicators](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-indicators.gif)
-
-<details>
-<summary>Yaml Example</summary>
-
-```yaml
-indicators:
-  single:
-    - entity: lock.car_lock
-      action_config:
-        tap_action:
-          action: more-info
-    - entity: sensor.car_state_of_charge
-      action_config:
-        tap_action:
-          action: more-info
-  group:
-    - name: Tires
-      items:
-        - entity: sensor.car_tire_pressure_front_left
-          name: Front left
-        - entity: sensor.car_tire_pressure_front_left
-          name: Front right
-        - entity: sensor.car_tire_pressure_front_left
-          name: Rear left
-        - entity: sensor.car_tire_pressure_front_left
-          name: Rear right
-      icon: mdi:car-tire-alert
-    - name: Windows
-      items:
-        - entity: cover.living_room_window
-          name: Front Left
-          action_config: {}
-          icon: mdi:car-door
-        - entity: sensor.amg_window_rearright
-          action_config: {}
-          name: Rear Right
-      icon: mdi:car-door
-```
-
-</details>
-
-</details>
-
-
-# Range Info Bars
-
-Range info bars are used to display progress bars for entities that represent a measurable range, such as fuel levels, battery charge, or remaining range. These bars provide a visual representation of how much of a resource is left, making it easy to monitor critical vehicle metrics at a glance.
-
-### Key Features of Range Info Bars
-
-- **Energy Level**: Track the remaining battery or fuel levels of the vehicle. This can represent a percentage or exact value, such as kilometers or liters remaining.
-
-- **Range Level**: Visualize how far the vehicle can travel with the remaining energy or fuel. This is particularly useful for electric vehicles or long-range configurations.
-
-- **Charging Status Entity**: Optionally display a dedicated charging entity to reflect whether the vehicle is currently charging. This allows for dynamic display behavior based on real-time charging state.
-
-- **Charge Target Line**: Visually show a line representing the vehicle's target charge level (e.g., 80%). This helps users understand how close the current charge is to the desired target, and plan accordingly.
-
-- **Progress Color**: Customize the color of the progress bar to better reflect energy status (e.g., green for full, yellow for moderate, red for low).
-
-Range info bars help users keep track of their vehicle’s vital statistics in an intuitive and readable format, ensuring they always know when they need to recharge or refuel — and how close they are to their target.
+支持同时配置多个进度条（主电池、副电池、油箱、续航等），并可选择 **row（横向）/ column（纵向）** 布局。
 
 ![Range info bars](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-range-info.gif)
 
-### Multiple Bars Support
-You can configure multiple range info bars to monitor different metrics side by side—such as main battery level, auxiliary battery, fuel tank, or estimated range.
-- **Layout Options**: Choose between **row** or **column** layout to display the progress bars horizontally or vertically, depending on your design preferences or screen space.
+---
 
-![Range info bars layout](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-multibars-layout.gif)
+# 图片轮播（Images）
 
-<details>
-<summary>Yaml Example</summary>
+上传或添加多张图片，设置自动切换间隔与方向，即可在卡片内轮播展示。
 
-```yaml
-range_info:
-  - energy_level:
-      entity: sensor.max_state_of_charge
-      icon: mdi:battery
-      tap_action:
-        action: more-info
-      value_position: inside
-    range_level:
-      entity: sensor.car_distancezereset
-      value_position: inside
-    charging_entity: binary_sensor.vehicle_status_charging
-    progress_color: "#2196f3"
-    bar_height: 16
-    bar_radius: 8
-  - energy_level:
-      entity: sensor.car_state_of_charge
-      icon: mdi:battery
-      tap_action:
-        action: more-info
-    range_level:
-      entity: sensor.car_rangeelectrickm
-    charging_entity: binary_sensor.vehicle_status_charging
-    progress_color: "#4caf50"
-    bar_height: 16
-    bar_radius: 8
-layout_config:
-  range_info_config:
-    layout: row
-```
-</details>
+---
 
-# Images slides
+# 小地图（Mini Map）
 
-Image slides allow you to upload or link images that will be displayed in a rotating slideshow on the card. This feature can be used to showcase vehicle-related images, such as maps, dashboards, or even real-time snapshots from cameras.
+小地图在卡片内实时显示 `device_tracker` 实体的位置，可用于监控车辆或其它可定位设备。
 
-### Key Features
-
-- **Image Upload & Linking**: You can upload images directly from your device or link to external image URLs (e.g., snapshots, maps, rendered dashboards).
-- **Slideshow**: The images cycle through automatically at defined intervals, offering a dynamic visual display.
-- **Customization**: Fine-tune the appearance with options like max width/height, transition speed, slideshow effects, and more.
-- **Editor Preview**: When adding images in the UI editor, a live preview of each image is shown—helping you see exactly how your card will look.
-- **Drag-and-Drop Reordering**: Easily rearrange the order of your images directly in the editor using drag-and-drop. No need to manually adjust the configuration.
-
-
-### New Swiper Configuration Options
-
-The latest release introduces advanced swiper configuration options, allowing for more control over how images are displayed.
-
-### Swiper Configurable Options:
-
-- **Max Height**: Set the maximum height for the image slides.
-- **Max Width**: Set the maximum width for the image slides.
-- **Autoplay**: Automatically transition between images after a specified delay.
-- **Loop**: Whether the slideshow should loop indefinitely.
-- **Delay**: The amount of time (in milliseconds) each image stays on screen before transitioning to the next.
-- **Speed**: How fast the transition between images happens (in milliseconds).
-- **Effect**: Choose between different transition effects for the slideshow:
-  - `slide`: A classic sliding effect.
-  - `fade`: A smooth fade between images.
-  - `coverflow`: A 3D coverflow effect that adds depth to the transition.
-- **Hide Pagination**: Whether hide the pagination bullets.
-
-![Images slides](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-images.gif)
-
-<details>
-<summary>Yaml Example</summary>
-
-```yaml
-images:
-  - title: sample-car-3.png
-    url: >-
-      https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/refs/heads/main/assets/sample-images/sample-car-3.png
-  - title: sample-car-2.png
-    url: >-
-      https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/refs/heads/main/assets/sample-images/sample-car-2.png
-  - title: sample-car-1.png
-    url: >-
-      https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/refs/heads/main/assets/sample-images/sample-car-1.png
-  images_swipe:
-    max_height: 150
-    delay: 5000
-    max_width: 450
-    autoplay: true
-    loop: true
-    hide_pagination: true
-    effect: slide
-```
-</details>
-
-# Mini map
-
-The mini map feature displays a real-time map within the card, tracking the location of a `device_tracker` entity. This is especially useful for monitoring the current location of your vehicle or other trackable devices.
-
-### Key Features
-
-- **Real-Time Tracking**: Show live location updates using any `device_tracker` entity.
-- **Multiple Entities Support**: Track more than one device on the same map. Useful for multi-vehicle households, family members, or mixed fleet tracking.
-- **Custom Zoom Level**: Set the default zoom level to focus on the area around the tracked device(s).
-- **Theming Support**: Automatically adjust the map’s appearance to match your dashboard theme (light, dark, or auto based on time).
+- **实时跟踪**：使用任意 `device_tracker` 实体显示实时位置。
+- **多实体支持**：同一张地图上可跟踪多个设备。
+- **自定义缩放**：设置默认缩放级别。
+- **主题适配**：自动跟随仪表盘明暗主题（light / dark / auto）。
 
 ![Config mini map](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-mini-map.gif)
 
-- **MapTiler Integration**: Use your own **MapTiler API key** to unlock high-quality map tiles, including:
-  - Rich theming options (e.g., streets, satellite, outdoors).
-  - Smooth rendering and performance improvements.
-  - Customizable map style support.
+## 地图源（国内 / 海外切换）⭐ 中文版新增
 
-- **Standalone Mode**: With a MapTiler key provided, you can now configure the map as a **standalone card** — useful for displaying a larger tracking view or building a separate map-focused dashboard.
+> 原版将底图硬编码为 OpenFreeMap（海外服务器，国内加载较慢）。
+> 本分支新增 `map_source` 配置项，可在 **编辑器 → 底图配置** 中直接切换：
 
-### Maptiler Popup
-<details>
+| `map_source`    | 说明                                                   | 是否需要密钥            |
+| --------------- | ------------------------------------------------------ | ---------------------- |
+| `openfreemap`   | 默认。OpenFreeMap 海外矢量瓦片，全球可用，无需密钥。    | 否                     |
+| `tianditu`      | **天地图**（国内）。瓦片来自 `tianditu.gov.cn`，国内加载快。 | 是（浏览器端 `tk`）    |
 
-<summary>How to get API Key</summary>
+当选择「天地图」时，填入你的 **天地图浏览器端密钥（tk）**：
 
-For detailed maps popup, get a MapTiler API Key by following these steps:
+1. 在 [天地图控制台](https://console.tianditu.gov.cn/) 注册并创建应用，选择 **「浏览器端」** 类型；
+2. 复制生成的密钥（tk）；
+3. 在卡片编辑器 → 底图配置 → 地图源中选择「天地图」，并粘贴密钥保存。
 
-   1. Create free account
-      <https://www.maptiler.com/>
-   2. Copy new key
-      <https://cloud.maptiler.com/account/keys/>
-   3. In config editor paste key into Mini Map configuration > Maptiler API
-   4. Click Save
+> 说明：天地图免费额度约 **1 万次/天**（按瓦片请求计），个人使用完全足够；天地图坐标即为 WGS84，与设备的 GPS 坐标一致，无需偏移。地址反查（点地图显示地址）同样优先使用天地图地理编码（国内网络更稳）。
 
-</details>
+示例 YAML：
 
-![Config Maptiler map](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-maptiler-map.png)
+```yaml
+type: custom:vehicle-status-card
+mini_map:
+  device_tracker: device_tracker.your_device
+  map_source: tianditu          # 或 openfreemap（默认）
+  tianditu_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  map_zoom: 14
+  map_height: 150
+  enable_popup: true
+```
 
+## MapTiler（可选，用于高清弹窗大图）
 
+原版小地图弹窗使用 MapTiler 瓦片。若需更高质量的弹窗地图：
 
-# Button card
+1. 免费注册并创建密钥：<https://www.maptiler.com/> / <https://cloud.maptiler.com/account/keys/>
+2. 把密钥粘贴到「小地图配置 → MapTiler API 密钥（可选）」。
+3. 保存后即可启用 **独立大图卡片**（Single map card）模式。
 
-The button card is a core feature that provides interactive buttons to control or monitor specific entities in your vehicle. Each button can be customized with a primary label, secondary information, icons, and notifications.
+> 提示：内联小地图的底图由 `map_source` 决定（可不填 MapTiler 密钥）；MapTiler 密钥仅用于弹窗大图与地址反查的优先来源。
 
-## Single Button Configuration
+---
 
-A single button allows you to represent an entity or action related to your vehicle. You can set up the button’s appearance, behavior, and actions to suit your needs.
+# 按钮卡片（Button Card）
 
-### Key Features
+按钮卡片用于与车辆实体交互或监控。每个按钮可自定义主标签、次要信息、图标与通知徽标。
 
-- **Primary Label**: The main label on the button, usually indicating the action or entity (e.g., "Lock Doors").
-- **Secondary Info**: Additional details below the primary label, such as the state of an entity (e.g., "Locked" or "Unlocked").
-- **Icon**: Customize the icon displayed on the button to visually represent the entity or action (e.g., a lock or fuel pump).
-- **Notifications**: Set up conditional notifications to alert you when certain states occur (e.g., when the fuel level is low).
-- **Action Types**: New feature that allows you to configure different types of actions for the button, such as `tap`, `hold`, or `double_tap` actions.
+- **主标签（Primary Label）**：按钮主文字，通常表示动作或实体（如「锁车门」）。
+- **次要信息（Secondary Info）**：主标签下方的补充信息（如「已锁定」）。
+- **图标（Icon）**：自定义按钮图标。
+- **通知（Notifications）**：按条件显示通知徽标（如低油量提醒）。
+- **动作类型（Action Type）**：支持 `tap_action`（单击）、`hold_action`（长按）、`double_tap_action`（双击）。
 
-### Action Type
-
-The **Action Type** feature allows you to define what action should be triggered when interacting with a button. Each button can have multiple action types configured, giving you more control over how the button behaves. You can specify different actions for tapping, holding, or double tapping the button.
-
-#### Supported Action Types:
-
-- **tap_action**: The action triggered when the button is tapped.
-- **hold_action**: The action triggered when the button is held down.
-- **double_tap_action**: The action triggered when the button is double tapped.
-
-#### Available Actions:
-
-- `more-info`: Opens the more-info dialog of the entity.
-- `toggle`: Toggles the state of the entity (e.g., from `on` to `off`).
-- `call-service`: Calls a Home Assistant service (e.g., `lock.lock`).
-- `navigate`: Navigates to a specified path or view in the interface.
-- `url`: Opens a specific URL.
+支持的动作为 Home Assistant 标准动作：`more-info`、`toggle`、`call-service`、`navigate`、`url`。
 
 ![Config button](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-button.gif)
 
-## Default Card
-
-The default card configuration allows you to display a set of related entities with their states in a structured way. This card can display multiple pieces of information, such as sensor readings or status indicators, in a compact and organized format.
-
-### Key Features
-
-- **Title**: Each default card can have a title to define the category of items being displayed (e.g., "Fuel Status" or "Vehicle Locks").
-- **Collapsible Sections**: You can optionally make sections of the card collapsible, allowing users to hide or show the details as needed.
-- **Items**: Display a list of entities with their states, icons, and labels. This provides a clear overview of the current status of various vehicle sensors or controls (e.g., tire pressure, battery status).
-
-The default card is perfect for grouping and displaying related entities in one place, giving users an at-a-glance view of the vehicle’s key metrics or controls.
-
-![Config Default Card](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-default-card.gif)
-
-## Custom Card
-
-The custom card configuration allows you to integrate any Home Assistant-supported card into the vehicle status card. This feature gives you full flexibility to display or interact with various entities using custom Lovelace cards.
-
-### Key Features
-
-- **Full Lovelace Support**: You can embed any Lovelace card configuration, such as entity cards, glance cards, or custom third-party cards.
-- **Custom Layout**: Customize the layout and appearance of the card to suit your preferences, allowing you to display more complex data or control options.
-- **Entity Control**: Use custom cards to control specific entities or display detailed information, such as real-time vehicle metrics or custom sensor data.
-
-This powerful feature allows you to extend the functionality of the vehicle status card by adding any custom elements or controls that fit your needs.
-
-![Config Custom Card](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-custom-card.gif)
-
-## Tire Pressures Card
-
-The **Tire Pressures Card** allows users to monitor and display the tire pressures of their vehicle in a highly customizable manner. This card provides a visual representation of the vehicle’s tires, allowing users to assign specific entities to each tire and customize the background image, layout, and size.
-
-This card is designed to give users a clear, at-a-glance view of their tire pressure status, ensuring they can easily monitor and respond to any issues that may arise.
-
-### Key Features
-
-- **Custom Background**: Upload or link to a custom image of your vehicle, allowing for a personalized layout.
-- **Tire Pressure Monitoring**: Assign specific Home Assistant entities to each tire to display real-time pressure readings.
-- **Customizable Layout**: You can adjust the size, position, and orientation of the vehicle image and tire indicators.
-- **Responsive Design**: Ensure the card fits neatly within your dashboard, adapting to different screen sizes and layouts.
-
-### Tire Pressure Card Configuration
-
-The card supports complete customization, from setting the vehicle's background image to adjusting the size and positioning of tire pressure indicators.
-
-#### Available Options:
-
-- **Background Image**: Set a custom image of your vehicle (or any image of your choice) as the background to enhance the visual appeal of the tire pressures display.
-- **Tire Entities**: Define which Home Assistant entities should be used for each tire (front left, front right, rear left, rear right).s
-- **Image Size & Position**: Customize the size and position of the background image, ensuring that the tire pressure indicators fit well within the image.
-- **Orientation**: Choose whether the layout should be horizontal or vertical, allowing you to display the tires in the correct orientation based on the background image.
-
-  ![Config Tire Pressures Card](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-tire-card.gif)
-
-
-# Layout configurations
-
-The layout configuration controls how elements within the vehicle status card are displayed, including themes, grid layout, and visibility of certain components.
-
-### Key Features
-
-- **Theme Configuration**: Customize the card’s overall appearance using a theme mode:
-
-  - `auto`: Automatically switches based on your system or dashboard theme.
-  - `light`: Use a light background and styling.
-  - `dark`: Use a dark theme optimized for low-light environments.
-
-  ![Config layout theme](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-layout-theme.gif)
-
-- **Button Grid Layout**:
-
-  - Set the number of **rows** for displaying buttons.
-  - Enable **swipe gestures** for smooth scrolling on mobile devices.
-  - Choose between **vertical or horizontal layout** for each button using the new `layout` option.
-  - Apply a **transparent background** to buttons for a cleaner, more integrated visual style.
-
-  ![Config layout](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-layout-buttons.gif)
-
-- **Visibility Controls**: Toggle the display of individual card sections to match your needs:
-
-  - **Card Name**
-  - **Mini Map**
-  - **Buttons**
-  - **Indicators**
-  - **Range Info**
-  - **Images**
-
-- **Section Reordering**: Easily **rearrange the order** in which the main sections appear on the card. This lets you prioritize the content most relevant to your use case, whether that's vehicle status, location, or custom buttons.
-
-  This configuration gives you full flexibility to design the card’s layout and optimize it for different devices or user preferences.
-
-  ![Config layout](https://raw.githubusercontent.com/ngocjohn/vehicle-status-card/main/assets/config-layout-hide-order.gif)
-
-<details>
-<summary>Yaml Example</summary>
-
-```yaml
-layout_config:
-  button_grid:
-    rows: 2
-    columns: 2
-    swipe: true
-    button_layout: horizontal
-    transparent: false
-  hide:
-    button_notify: false
-    buttons: false
-    images: true
-    indicators: false
-    range_info: true
-    mini_map: true
-    card_name: false
-    map_address: false
-  section_order:
-    - indicators
-    - range_info
-    - buttons
-```
-
-</details>
-
-
-<!--README-CONTENT-END-->
 ---
-&copy; 2024 Viet Ngoc
 
-[https://github.com/ngocjohn/](https://github.com/ngocjohn/)
+# 常见问题与提示
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- **地图加载慢 / 白屏**：国内网络请将 `map_source` 设为 `tianditu` 并填入 `tianditu_key`。
+- **编辑器文字仍显示英文**：卡片界面内的绝大多数提示跟随 Home Assistant 界面语言；若 HA 界面为中文，则卡片运行时提示自动为中文。本次汉化覆盖了编辑器中的硬编码英文。
+- **HACS 下载后需要强刷**：安装新版本后请 `Ctrl + F5` 强制刷新，避免旧脚本缓存。
+- **原版**：https://github.com/ngocjohn/vehicle-status-card
 
+---
 
-<!--Badges-->
-[hacs-default]: https://img.shields.io/badge/HACS-Default-blue?style=flat&logo=homeassistantcommunitystore&logoSize=auto
-[hacs-default-link]: https://my.home-assistant.io/redirect/hacs_repository/?owner=ngocjohn&repository=vehicle-info-card&category=plugin
-[hacs-validate]: https://github.com/ngocjohn/vehicle-status-card/actions/workflows/validate.yml/badge.svg
-[hacs-url]: https://github.com/ngocjohn/vehicle-status-card/actions/workflows/validate.yml
-[git-last-commit-badge]: https://img.shields.io/github/last-commit/ngocjohn/vehicle-status-card
-[git-download-all-badge]: https://img.shields.io/github/downloads/ngocjohn/vehicle-status-card/total?style=flat&logo=homeassistantcommunitystore&logoSize=auto&label=Downloads&color=%2318BCF2
-[git-download-latest-badge]: https://img.shields.io/github/downloads/ngocjohn/vehicle-status-card/latest/total?style=flat&logo=homeassistantcommunitystore&logoSize=auto
-[forum-url]: https://community.home-assistant.io/t/vehicle-status-custom-card/
-[forum-badge]:https://img.shields.io/badge/forum-community?style=flat&logo=homeassistant&label=community&color=blue
-<!--Urls-->
-
+[hacs-default]: https://img.shields.io/badge/HACS-Default-orange.svg
+[hacs-default-link]: https://github.com/hacs/integration
+[hacs-validate]: https://img.shields.io/badge/HACS-Custom-41BDF5.svg
+[hacs-url]: https://github.com/hacs/integration
+[git-last-commit-badge]: https://img.shields.io/github/last-commit/jimmy-tsui/vehicle-status-card-zh-cn/main
+[git-download-all]: https://img.shields.io/github/downloads/jimmy-tsui/vehicle-status-card-zh-cn/total
+[git-download-latest]: https://img.shields.io/github/downloads/jimmy-tsui/vehicle-status-card-zh-cn/latest/total

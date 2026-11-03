@@ -22,7 +22,7 @@ const OVERLAY_ICON: Record<ActionType | string, string> = {
 
 export const DeleteAction: MenuItemConfig[] = [
   {
-    title: 'Delete',
+    title: '删除',
     action: 'delete-item',
     icon: 'mdi:delete',
     color: 'var(--error-color)',

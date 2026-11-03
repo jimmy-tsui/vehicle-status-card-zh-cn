@@ -4,6 +4,7 @@ import { EntityConfig } from '../entity-config';
 export type LABEL_MODE = 'name' | 'state' | 'attribute' | 'icon';
 export type HISTORY_PERIOD = 'today' | 'yesterday';
 export type MAP_THEME_MODE = 'auto' | 'dark' | 'light';
+export type MAP_SOURCE = 'openfreemap' | 'tianditu';
 
 export interface Address {
   streetNumber?: string;
@@ -34,6 +35,13 @@ export interface MiniMapBaseConfig {
   maptiler_api_key?: string;
   single_map_card?: boolean;
   google_api_key?: string;
+  /**
+   * Base map source. `openfreemap` (default) works globally,
+   * `tianditu` uses Tianditu tiles (China-friendly, requires `tianditu_key`).
+   */
+  map_source?: MAP_SOURCE;
+  /** Tianditu service key (tk), required when `map_source: 'tianditu'` */
+  tianditu_key?: string;
 }
 
 export interface MinimapLayoutConfig {

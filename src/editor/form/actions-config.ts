@@ -28,7 +28,7 @@ export const computeOptionalActionSchema = () => {
   return [
     {
       name: 'tap_action',
-      label: 'Tap Action',
+      label: '点击动作',
       selector: {
         ui_action: {
           actions: DEFAULT_ACTIONS,

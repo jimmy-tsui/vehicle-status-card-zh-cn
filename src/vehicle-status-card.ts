@@ -871,7 +871,7 @@ export class VehicleStatusCard extends BaseElement implements LovelaceCard {
 (window as any).customCards.push({
   type: 'vehicle-status-card',
   name: 'Vehicle Status Card',
-  description: 'A custom card to track vehicle status',
+  description: '用于跟踪车辆状态的自定义卡片',
   preview: true,
   documentationURL: 'https://github.com/ngocjohn/vehicle-status-card?tab=readme-ov-file#configuration',
 });

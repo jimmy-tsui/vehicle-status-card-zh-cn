@@ -121,12 +121,12 @@ export class PanelButtonCard extends BaseEditor {
     const configTabs = [
       {
         key: `button-${buttonIndex}`,
-        label: 'Button',
+        label: '按钮',
         content: this._renderButtonConfig(buttonCard, buttonIndex),
       },
       {
         key: `default-card-${buttonIndex}`,
-        label: 'Default Card',
+        label: '默认卡片',
         content:
           this._cardIndex === null
             ? this._renderDefaultCardList(defaultCard, buttonIndex)
@@ -134,12 +134,12 @@ export class PanelButtonCard extends BaseEditor {
       },
       {
         key: `custom-card-${buttonIndex}`,
-        label: 'Custom Card',
+        label: '自定义卡片',
         content: this._renderCustomCardConfig(buttonIndex),
       },
       {
         key: `tire-card-${buttonIndex}`,
-        label: 'Tire Card',
+        label: '轮胎卡片',
         content: this._renderTireCardConfig(buttonCard, buttonIndex),
       },
     ];
@@ -151,8 +151,8 @@ export class PanelButtonCard extends BaseEditor {
           `${button.icon}`,
 
           this._yamlEditorActive
-            ? [{ title: 'Close Editor', action: this.toggleAction('yaml-editor'), icon: ICON.CLOSE }]
-            : [{ title: 'Back to list', action: this.toggleAction('back-to-list'), icon: ICON.CHEVRON_LEFT }],
+            ? [{ title: '关闭编辑器', action: this.toggleAction('yaml-editor'), icon: ICON.CLOSE }]
+            : [{ title: '返回列表', action: this.toggleAction('back-to-list'), icon: ICON.CHEVRON_LEFT }],
 
           [{ action: this.toggleAction('yaml-editor') }]
         )}
@@ -224,7 +224,7 @@ export class PanelButtonCard extends BaseEditor {
   private _renderButtonConfig(buttonCard: ButtonCardConfig, buttonIndex: number): TemplateResult {
     const headerActions =
       this.config.layout_config?.section_order?.includes('buttons') && !buttonCard.hide_button
-        ? [{ title: 'Show Button', action: this.toggleAction('show-button', buttonIndex) }]
+        ? [{ title: '显示按钮', action: this.toggleAction('show-button', buttonIndex) }]
         : [];
 
     const btnHeader = this._renderSubHeader('Button configuration', headerActions);
@@ -272,8 +272,8 @@ export class PanelButtonCard extends BaseEditor {
   private _renderDefaultCardList(defaultCard: DefaultCardConfig[], buttonIndex: number): TemplateResult {
     const noCards = !defaultCard.length;
     const actions = [
-      { title: 'Duplicate', action: ACTIONS.CATEGORY_DUPLICATE, icon: 'mdi:content-duplicate' },
-      { title: 'Delete', action: ACTIONS.CATEGORY_DELETE, icon: 'mdi:delete', color: 'var(--error-color)' },
+      { title: '复制', action: ACTIONS.CATEGORY_DUPLICATE, icon: 'mdi:content-duplicate' },
+      { title: '删除', action: ACTIONS.CATEGORY_DELETE, icon: 'mdi:delete', color: 'var(--error-color)' },
     ];
 
     const defaultCardlist = !noCards
@@ -535,7 +535,7 @@ export class PanelButtonCard extends BaseEditor {
             break;
           case 'delete-button':
             if (buttonIndex !== undefined) {
-              let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this button?', 'Delete');
+              let confirm = await showConfirmDialog(this, '确定要删除该按钮吗？', '删除');
               if (!confirm) {
                 return;
               }
@@ -552,7 +552,7 @@ export class PanelButtonCard extends BaseEditor {
             break;
           case 'category-delete':
             if (buttonIndex !== undefined && cardIndex !== undefined) {
-              let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this category?', 'Delete');
+              let confirm = await showConfirmDialog(this, '确定要删除该分组吗？', '删除');
               if (!confirm) {
                 return;
               }
@@ -585,7 +585,7 @@ export class PanelButtonCard extends BaseEditor {
             if (buttonIndex !== undefined) {
               const buttonCardConfig = [...(this.config.button_card || [])] as ButtonCardConfig[];
               const defaultCard = buttonCardConfig[buttonIndex]?.default_card || [];
-              const newCard = { title: 'New Category', collapsed_items: false, items: [] };
+              const newCard = { title: '新建分组', collapsed_items: false, items: [] };
               buttonCardConfig[buttonIndex].default_card = [...defaultCard, newCard];
               this._copyToPreview(buttonCardConfig[buttonIndex].default_card);
               updateChange(buttonCardConfig);

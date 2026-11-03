@@ -90,8 +90,8 @@ export class PanelIndicatorRows extends BaseEditor {
               ${repeat(rows, (row, index) => {
                 const expansionOps = {
                   icon: `mdi:numeric-${index + 1}-circle`,
-                  header: `ROW #${index + 1}`,
-                  secondary: `${row.row_items?.length || 0} items`,
+                  header: `第 ${index + 1} 行`,
+                  secondary: `${row.row_items?.length || 0} 项`,
                   leftChevron: true,
                   elId: `row-${index}`,
                 } as ExpansionPanelParams['options'];
@@ -136,7 +136,7 @@ export class PanelIndicatorRows extends BaseEditor {
     let deleteFound = false;
     return html` <div class="item-actions" slot="icons">
       <ha-icon-button
-        .label=${'Edit Row'}
+        .label=${'编辑行'}
         .path=${ICON.CHEVRON_RIGHT}
         .action=${'edit'}
         .index=${rowIndex}
@@ -251,7 +251,7 @@ export class PanelIndicatorRows extends BaseEditor {
         this._dispatchEditorEvent('toggle-highlight-row-item', previewConfig);
         break;
       case 'delete-item':
-        let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this item?', 'Delete');
+        let confirm = await showConfirmDialog(this, '确定要删除该条目吗？', '删除');
         if (!confirm) return;
         let currentRows = [...(this._rows || [])];
         let row = [...currentRows[rowIndex].row_items];
@@ -334,7 +334,7 @@ export class PanelIndicatorRows extends BaseEditor {
           }, 3000);
           break;
         case 'delete':
-          let confirm = await showConfirmDialog(this, 'Are you sure you want to delete this row?', 'Delete');
+          let confirm = await showConfirmDialog(this, '确定要删除该行吗？', '删除');
           if (!confirm) return;
           currentRows.splice(Number(index), 1);
           this._configChanged(currentRows);

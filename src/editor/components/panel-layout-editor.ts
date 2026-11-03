@@ -66,7 +66,7 @@ export class PanelLayoutEditor extends BaseEditor {
       ></panel-button-card-tire>
     `;
     const panelOpts = {
-      header: 'Standalone Tire Card',
+      header: '独立轮胎卡片',
       icon: 'mdi:car-tire-alert',
       elId: 'tire-card-config',
     };

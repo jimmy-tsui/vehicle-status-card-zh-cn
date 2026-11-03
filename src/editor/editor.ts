@@ -223,10 +223,10 @@ export class VehicleStatusCardEditor extends BaseEditor implements LovelaceCardE
       message: html` For more info in the <a href=${ALERT_INFO.INDICATOR_ROW_URL} target="_blank">WIKI</a>. Or migrate
         to the new format.`,
       options: {
-        title: 'New Indicators Configuration',
+        title: '新建指示器配置',
         action: [
           {
-            label: 'Migrate',
+            label: '迁移',
             variant: 'warning',
             callback: () => {
               this._convertLegacyIndicatorsConfig();
@@ -255,7 +255,7 @@ export class VehicleStatusCardEditor extends BaseEditor implements LovelaceCardE
 
     const tabsConfig = [
       { content: single, key: 'single', label: 'Single' },
-      { content: group, key: 'group', label: 'Group' },
+      { content: group, key: 'group', label: '分组' },
     ];
 
     return html`

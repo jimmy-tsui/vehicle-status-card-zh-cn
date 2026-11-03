@@ -174,7 +174,7 @@ export class PanelEditorUI extends BaseEditor {
                   ></ha-icon-button>
 
                   <ha-icon-button
-                    .label=${'Delete'}
+                    .label=${'删除'}
                     .path=${ICON.DELETE}
                     @click=${this._handleDeleteCard}
                   ></ha-icon-button>

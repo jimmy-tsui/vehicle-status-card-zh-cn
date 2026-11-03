@@ -22,8 +22,8 @@ import { showToast } from '../../panels/lovelace/toast';
 const IMAGE_ENTITY_SCHEMA = [
   {
     type: 'expandable',
-    title: 'Image Entities',
-    helper: 'Select image entities to include',
+    title: '图片实体',
+    helper: '选择要包含的图片实体',
     icon: 'mdi:list-box-outline',
     schema: [
       {
@@ -50,7 +50,7 @@ const IMAGE_URLS_SCHEMA = [
         multiple: true,
         fields: {
           image: {
-            label: 'Path or URL',
+            label: '路径或链接',
             selector: { text: {} },
             required: false,
           },
@@ -253,9 +253,9 @@ export class VscImageUpload extends LitElement implements HassDialog<ImageUpload
     `;
 
     const options = {
-      header: 'Image URLs',
+      header: '图片链接',
       icon: 'mdi:link-variant',
-      secondary: 'Add image URLs or upload images (multiple supported)',
+      secondary: '添加图片链接或上传图片（支持多张）',
       expanded: true,
     };
     return ExpansionPanel({ content: urlsContent, options });
@@ -336,7 +336,7 @@ export class VscImageUpload extends LitElement implements HassDialog<ImageUpload
         console.warn('Unsupported files:', unsupportedFiles);
       }
       this._imageUrls = this._imageUrls.concat(uploadedImages);
-      this._showToast(`${uploadedImages.length} image(s) uploaded successfully.`);
+      this._showToast(`${uploadedImages.length}  张图片上传成功。`);
     } catch (err) {
       console.error('Error uploading image:', err);
     } finally {
@@ -351,12 +351,12 @@ export class VscImageUpload extends LitElement implements HassDialog<ImageUpload
     // check type of image (image_entity or image) to remove correctly from respective array
     if (image.image_entity) {
       this._imageEntities = this._imageEntities.filter((ent) => ent !== image.image_entity);
-      this._showToast(`Image entity ${image.image_entity} removed.`);
-      console.debug('Image entity removed:', image.image_entity);
+      this._showToast(`图片实体 ${image.image_entity} 已移除。`);
+      console.debug('图片实体 removed:', image.image_entity);
     } else if (image.image) {
       this._imageUrls = this._imageUrls.filter((url) => url !== image.image);
-      this._showToast(`Image URL ${image.image} removed.`);
-      console.debug('Image URL removed:', image.image);
+      this._showToast(`图片链接 ${image.image} 已移除。`);
+      console.debug('图片链接 removed:', image.image);
     }
     // data will be updated in willUpdate
   }

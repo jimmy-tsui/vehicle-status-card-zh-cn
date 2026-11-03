@@ -37,13 +37,13 @@ const DIMENSION_SCHEMA = (isHorizontal: boolean) => {
       schema: [
         {
           name: 'image_size',
-          label: 'Base image size scale (%)',
+          label: '基准图片尺寸比例 (%)',
           selector: { number: { max: 200, min: 0, mode: 'slider', step: 1 } },
           default: 100,
         },
         {
           name: 'value_size',
-          label: 'Name/Value scale size (%)',
+          label: '名称/数值尺寸比例 (%)',
           selector: { number: { max: 150, min: 50, mode: 'slider', step: 1 } },
           default: 100,
         },
@@ -69,7 +69,7 @@ export const TIRE_APPEARANCE_SCHEMA = memoizeOne(
     [
       {
         name: 'title',
-        label: 'Card Title',
+        label: '卡片标题',
         required: false,
         selector: { text: { type: 'text' } },
       },
@@ -80,19 +80,19 @@ export const TIRE_APPEARANCE_SCHEMA = memoizeOne(
         schema: [
           {
             name: 'horizontal',
-            label: 'Horizontal',
+            label: '横向',
             default: false,
             selector: { boolean: {} },
           },
           {
             name: 'hide_rotation_button',
-            label: 'Hide rotation button',
+            label: '隐藏旋转按钮',
             default: false,
             selector: { boolean: {} },
           },
           {
             name: 'aspect_ratio',
-            label: 'Aspect Ratio',
+            label: '宽高比',
             selector: { text: { type: 'text' } },
             default: '1/1',
           },
@@ -105,7 +105,7 @@ export const TIRE_APPEARANCE_SCHEMA = memoizeOne(
 export const TIRE_BACKGROUND_SCHEMA = [
   {
     name: 'background',
-    label: 'Background image',
+    label: '背景图片',
     selector: {
       media: {
         accept: ['image/*'] as string[],
@@ -119,9 +119,9 @@ export const TIRE_BACKGROUND_SCHEMA = [
   },
   {
     name: 'background_entity',
-    label: 'Background entity',
+    label: '背景实体',
     selector: { entity: { domain: ['image'] } },
-    helper: 'If set, the background image will be taken from this entity.',
+    helper: '若设置，背景图片将取自该实体。',
   },
 ] as const;
 
@@ -129,19 +129,19 @@ export const TIRE_CUSTOM_POSITION_SCHEMA = (useCustomPosition: boolean = false, 
   return [
     {
       type: 'expandable',
-      label: 'Custom Position',
+      label: '自定义位置',
       flatten: true,
       schema: [
         {
           name: 'use_custom_position',
-          label: 'Use Custom Position',
+          label: '使用自定义位置',
           type: 'boolean',
           default: false,
-          helper: 'Enable to set a custom position for this tire item.',
+          helper: '启用后可为此轮胎条目设置自定义位置。',
         },
         {
           name: 'position',
-          label: 'Position (%)',
+          label: '位置 (%)',
           type: 'grid',
           flatten: false,
           disabled: !useCustomPosition,
@@ -166,13 +166,13 @@ export const TIRE_CUSTOM_POSITION_SCHEMA = (useCustomPosition: boolean = false, 
 export const ADDITIONAL_ENTITY_SCHEMA = [
   {
     name: 'entity',
-    label: 'Entity',
+    label: '实体',
     selector: { entity: {} },
     required: true,
   },
   {
     name: 'state_content',
-    label: 'State content',
+    label: '状态内容',
     selector: {
       ui_state_content: {
         allow_context: true,
@@ -184,13 +184,13 @@ export const ADDITIONAL_ENTITY_SCHEMA = [
   },
   {
     name: 'prefix',
-    label: 'Prefix',
+    label: '前缀',
     selector: { text: { type: 'text' } },
     required: false,
   },
   {
     name: 'suffix',
-    label: 'Suffix',
+    label: '后缀',
     selector: { text: { type: 'text' } },
     required: false,
   },
@@ -202,17 +202,17 @@ export const TIRE_ENTITY_SCHEMA = memoizeOne(
     return [
       {
         type: 'expandable',
-        label: 'Main Value Entity',
+        label: '主数值实体',
         flatten: true,
         schema: [
           {
             name: 'entity',
-            label: 'Entity',
+            label: '实体',
             selector: { entity: {} },
           },
           {
             name: 'attribute',
-            label: 'Attribute',
+            label: '属性',
             selector: { attribute: {} },
             context: {
               filter_entity: `entity`,
@@ -220,17 +220,17 @@ export const TIRE_ENTITY_SCHEMA = memoizeOne(
           },
           {
             name: 'name',
-            label: 'Name',
+            label: '名称',
             selector: { text: { type: 'text' } },
             default: tireLabel,
-            helper: 'Name of the tire',
+            helper: '轮胎名称',
           },
           {
             name: 'color',
-            label: 'Color Template for value',
+            label: '数值颜色模板',
             selector: { template: {} },
             helper:
-              'Customize the color based on a template. The template should return a valid color name or hex code.',
+              '基于模板自定义颜色。模板需返回合法的颜色名称或十六进制色值。',
           },
         ],
       },
@@ -247,8 +247,8 @@ export const SINGLE_TIRE_ENABLED_SCHEMA = [
     schema: [
       {
         name: 'enabled',
-        label: 'Enable Standalone Tire Card',
-        helper: 'If enabled, the tire card will be displayed as a single card.',
+        label: '启用独立轮胎卡片',
+        helper: '启用后，轮胎卡片将以独立卡片形式显示。',
         type: 'boolean',
         default: false,
       },

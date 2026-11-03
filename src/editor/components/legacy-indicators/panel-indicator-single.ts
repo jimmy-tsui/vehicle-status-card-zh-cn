@@ -49,9 +49,9 @@ export class PanelIndicatorSingle extends LitElement {
 
     const singleItems = this.singleConfig;
     const actionMap = [
-      { title: 'Edit', icon: 'mdi:pencil', action: (index: number) => this._handleAction('edit', index) },
+      { title: '编辑', icon: 'mdi:pencil', action: (index: number) => this._handleAction('edit', index) },
       {
-        title: 'Remove',
+        title: '移除',
         icon: 'mdi:delete',
         action: (index: number) => this._handleAction('remove', index),
         color: 'var(--error-color)',

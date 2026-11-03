@@ -120,7 +120,7 @@ export class PanelButtonDefaultCard extends ButtonCardBaseEditor {
     let deleteFound = false;
     return html` <div class="item-actions" slot="icons">
       <ha-icon-button
-        .label=${'Edit Row'}
+        .label=${'编辑行'}
         .path=${ICON.CHEVRON_RIGHT}
         .action=${'edit'}
         .index=${catIndex}
@@ -161,7 +161,7 @@ export class PanelButtonDefaultCard extends ButtonCardBaseEditor {
         ${repeat(items, (item, index) => {
           const { name, icon, entity } = item;
           const iconSlot = icon ?? `mdi:numeric-${index + 1}-circle`;
-          const itemType = entity ? 'Entity' : 'Empty';
+          const itemType = entity ? '实体' : 'Empty';
           let label: string = itemType;
           let content: string | undefined = name;
           if (!content && !entity) {
@@ -258,7 +258,7 @@ export class PanelButtonDefaultCard extends ButtonCardBaseEditor {
 
   private _handleAddCategory(): void {
     const newCategory: CardDefaultConfig = {
-      title: 'New Category',
+      title: '新建分组',
       items: [],
     };
     const newList = [...(this._defaultCardConfig || []), newCategory];

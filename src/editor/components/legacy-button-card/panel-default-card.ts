@@ -14,7 +14,7 @@ import { PANEL } from '../../editor-const';
 export const defaultCardSchema = [
   {
     name: 'title',
-    label: 'Category Title',
+    label: '分组标题',
     type: 'string',
   },
   {
@@ -23,13 +23,13 @@ export const defaultCardSchema = [
     schema: [
       {
         name: 'collapsed_items',
-        label: 'Collapsed Items',
+        label: '折叠项',
         type: 'boolean',
         default: false,
       },
       {
         name: 'state_color',
-        label: 'State Color',
+        label: '状态颜色',
         type: 'boolean',
         default: false,
       },
@@ -46,7 +46,7 @@ export const defaultCardItemSchema = memoizeOne(
         schema: [
           {
             name: 'name',
-            label: 'Name',
+            label: '名称',
             selector: { text: { type: 'text' } },
           },
           {
@@ -55,13 +55,13 @@ export const defaultCardItemSchema = memoizeOne(
           },
           {
             name: 'icon',
-            label: 'Icon',
+            label: '图标',
             selector: { icon: {} },
             context: { icon_entity: 'entity' },
           },
           {
             name: 'attribute',
-            label: 'Attribute',
+            label: '属性',
             selector: {
               attribute: {
                 entity_id: entity,
@@ -72,9 +72,9 @@ export const defaultCardItemSchema = memoizeOne(
       },
       {
         name: 'state_template',
-        label: 'State Template',
+        label: '状态模板',
         selector: { template: {} },
-        helper: 'Customize the state based on a template. The template should return a valid state name.',
+        helper: '基于模板自定义状态。模板需返回合法的状态名称。',
       },
     ] as const
 );
@@ -117,9 +117,9 @@ export class PanelDefaultCard extends LitElement {
 
   private _renderItemList(): TemplateResult {
     const actionMap = [
-      { title: 'Edit', icon: mdiPencil, action: (index: number) => (this._selectedItem = index) },
+      { title: '编辑', icon: mdiPencil, action: (index: number) => (this._selectedItem = index) },
       {
-        title: 'Delete',
+        title: '删除',
         icon: mdiDelete,
         action: (index: number) => this._deleteItem(index),
       },

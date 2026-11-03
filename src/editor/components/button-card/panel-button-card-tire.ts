@@ -119,14 +119,14 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
     // console.log('hasDiff', DEFAULT_LAYOUT, DATA, hasDiff);
     const appearanceForm = this._createVscForm(DATA, TIRE_APPEARANCE_SCHEMA(isHorizontal));
     const resetButton = Create.HaButton({
-      label: 'Reset to defaults',
+      label: '恢复默认设置',
       onClick: this._handleResetAppearance.bind(this),
       option: { disabled: !hasDiff, style: 'display: flex; margin-top: 1em;' },
     });
 
     const content = html`${appearanceForm}${resetButton}`;
 
-    return this._createPanel(PANEL.APPEARANCE, 'Appearance', 'mdi:move-resize', content);
+    return this._createPanel(PANEL.APPEARANCE, '外观', 'mdi:move-resize', content);
   }
 
   private _renderTires(): TemplateResult {
@@ -157,7 +157,7 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
 
     return this._createPanel(
       PANEL.TIRES,
-      'Tire Entities',
+      '轮胎实体',
       'mdi:car-tire-alert',
       html`<div class="base-config gap">${entitiesForm}</div>`
     );
@@ -167,7 +167,7 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
     const additionalEntities = this._tireConfig?.[tirePos]?.additional_entities || [];
 
     const addBtn = Create.HaButton({
-      label: 'Add Additional Entity',
+      label: '添加附加实体',
       onClick: () => this._addAdditionalEntity(tirePos),
       option: { type: 'add', style: 'display: block; margin-bottom: 8px;' },
     });
@@ -194,8 +194,8 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
     return Create.ExpansionPanel({
       content: html`${addBtn}${entitiesList}`,
       options: {
-        header: 'Additional Entities (Optional)',
-        secondary: 'Entities for secondary info',
+        header: '附加实体（可选）',
+        secondary: '用于次要信息的实体',
       },
     });
   }
@@ -229,7 +229,7 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
 
     if (action === 'edit-item') {
       const updatedEntityConfig = await showFormDialog(this, {
-        title: 'Edit Additional Entity',
+        title: '编辑附加实体',
         schema: [...ADDITIONAL_ENTITY_SCHEMA] as HaFormSchema[],
         data: entityConfig,
         submitText: 'Update',
@@ -252,7 +252,7 @@ export class PanelButtonCardTire extends ButtonCardBaseEditor {
       state_content: ['last_updated'],
     };
     const newEntity = await showFormDialog(this, {
-      title: 'Add Additional Entity',
+      title: '添加附加实体',
       schema: [...ADDITIONAL_ENTITY_SCHEMA] as HaFormSchema[],
       data: newEntityData,
       submitText: 'Add',

@@ -440,36 +440,36 @@ export class PanelRangeInfo extends BaseEditor {
     `;
 
     const headerActions = this._yamlItemEditorActive
-      ? [{ title: 'Close Editor', action: () => (this._yamlItemEditorActive = false), icon: ICON.CLOSE }]
-      : [{ title: 'Back to list', action: () => this._toggleAction('back-to-list'), icon: ICON.CHEVRON_LEFT }];
+      ? [{ title: '关闭编辑器', action: () => (this._yamlItemEditorActive = false), icon: ICON.CLOSE }]
+      : [{ title: '返回列表', action: () => this._toggleAction('back-to-list'), icon: ICON.CHEVRON_LEFT }];
 
     const yamlEditorToggle = [{ action: () => (this._yamlItemEditorActive = !this._yamlItemEditorActive) }];
 
     const energyLevelSection = createSection({
       energy_level: {
-        title: 'Energy entity (Required)',
-        helper: 'Entity to display the energy level (e.g., battery, fuel)',
+        title: '电量实体（必填）',
+        helper: '用于显示电量等级的实体（如：电池、燃油）',
         config: this._renderEnergyLevelConfig(rangeItem),
       },
     });
 
     const rangeLevelSection = createSection({
       range_level: {
-        title: 'Range Level (Optional)',
-        helper: 'Entity to display the range level (e.g., distance, range)',
+        title: '里程等级（可选）',
+        helper: '用于显示里程等级的实体（如：距离、续航）',
         config: this._renderRangeLevelConfig(rangeItem),
       },
     });
 
     const chargingEntitiesSection = createSection({
       charging_entity: {
-        title: 'Charging Entity',
-        helper: 'Entity to display the charging status',
+        title: '充电实体',
+        helper: '用于显示充电状态的实体',
         config: this._renderChargingEntityConfig(rangeItem),
       },
       charge_target_entity: {
-        title: 'Charge Target Entity',
-        helper: 'Entity to display the target charge level',
+        title: '充电目标实体',
+        helper: '用于显示目标充电电量的实体',
         config: this._renderChargeTargetEntityConfig(rangeItem),
       },
     });
@@ -478,8 +478,8 @@ export class PanelRangeInfo extends BaseEditor {
       selectedStyle === 'basic'
         ? createSection({
             progress_color: {
-              title: 'Progress Color',
-              helper: 'Color to display the progress bar',
+              title: '进度条颜色',
+              helper: '进度条显示颜色',
               config: this._renderBasicColors(rangeItem),
             },
             bar_background: {
@@ -497,20 +497,20 @@ export class PanelRangeInfo extends BaseEditor {
               config: this._renderBasicColors(rangeItem),
             },
             color_thresholds: {
-              title: 'Color Thresholds',
-              helper: 'Define color thresholds for the progress bar',
+              title: '颜色阈值',
+              helper: '为进度条定义颜色阈值',
               config: this._renderColorThresholds(rangeItem),
             },
           });
 
     const customizationSection = createSection({
       bar_dimensions: {
-        title: 'Bar Dimensions',
-        helper: 'Height(px) and Width(%) of the progress bar',
+        title: '进度条尺寸',
+        helper: '进度条的高度(px)与宽度(%)',
         config: this._renderBarDimensions(rangeItem),
       },
       color_style: {
-        title: 'Choose Bar Style to Customize',
+        title: '选择要自定义的进度条样式',
         config: colorStyleSelect,
       },
       color_section: {
@@ -521,8 +521,8 @@ export class PanelRangeInfo extends BaseEditor {
 
     const extraTemplates = createSection({
       visibility_template: {
-        title: 'Visibility Template',
-        helper: 'Template to control the visibility of this range info item',
+        title: '可见性模板',
+        helper: '用模板控制此里程信息条目的可见性',
         config: this._renderVisibilityConfig(rangeItem),
       },
     });
@@ -546,19 +546,19 @@ export class PanelRangeInfo extends BaseEditor {
               ${Create.ExpansionPanel({ content: energyLevelSection, options: { header: 'Energy level' } })}
               ${Create.ExpansionPanel({
                 content: rangeLevelSection,
-                options: { header: 'Range level (Optional)' },
+                options: { header: '里程等级（可选）' },
               })}
               ${Create.ExpansionPanel({
                 content: chargingEntitiesSection,
-                options: { header: 'Charging entities (Optional)' },
+                options: { header: '充电实体（可选）' },
               })}
               ${Create.ExpansionPanel({
                 content: customizationSection,
-                options: { header: 'Progress Bar Customization' },
+                options: { header: '进度条自定义' },
               })}
               ${Create.ExpansionPanel({
                 content: extraTemplates,
-                options: { header: 'Extra Templates (Optional)' },
+                options: { header: '附加模板（可选）' },
               })}
             </div>
           `}
@@ -582,12 +582,12 @@ export class PanelRangeInfo extends BaseEditor {
   private _renderRangeConfigList(): TemplateResult {
     const actionMap = [
       {
-        title: 'Edit',
+        title: '编辑',
         icon: ICON.PENCIL,
         action: (index: number) => this._toggleAction('edit-item', index),
       },
       {
-        title: 'Remove',
+        title: '移除',
         icon: ICON.DELETE,
         action: (index: number) => this._toggleAction('delete-item', index),
         color: 'var(--error-color)',
@@ -752,8 +752,8 @@ export class PanelRangeInfo extends BaseEditor {
     const backgroundSchema = [
       {
         name: 'bar_background',
-        label: 'Bar Background Color',
-        helper: 'Color to display the background of the progress bar',
+        label: '进度条背景颜色',
+        helper: '设置进度条背景颜色',
         type: 'string',
       },
     ];
@@ -783,8 +783,8 @@ export class PanelRangeInfo extends BaseEditor {
     const colorTemplateSchema = [
       {
         name: 'color_template',
-        label: 'Color Template',
-        helper: 'Template to set the color of the progress bar, this will replace the progress_color',
+        label: '颜色模板',
+        helper: '用模板设置进度条颜色，将覆盖 progress_color 配置',
         selector: { template: {} },
       },
     ] as const;
@@ -816,8 +816,8 @@ export class PanelRangeInfo extends BaseEditor {
     const COLOR_BLOCK_SCHEMA = [
       {
         name: 'color_blocks',
-        label: 'Color Blocks',
-        helper: 'Use color blocks instead of a gradient for the progress bar',
+        label: '颜色色块',
+        helper: '进度条使用色块而非渐变显示',
         default: false,
         type: 'boolean',
       },
@@ -1222,8 +1222,8 @@ export class PanelRangeInfo extends BaseEditor {
     const colorFieldSchema = [
       {
         name: 'progress_color',
-        label: 'Progress Color',
-        helper: 'Color to display the progress bar',
+        label: '进度条颜色',
+        helper: '进度条显示颜色',
         type: 'string',
       },
     ] as const;
@@ -1234,7 +1234,7 @@ export class PanelRangeInfo extends BaseEditor {
           ${this._createHaForm(DATA, colorFieldSchema)}
           <ha-selector
             .hass=${this._hass}
-            .label=${'Progress Color'}
+            .label=${'进度条颜色'}
             .value=${progressColor ? colorToRgb(progressColor) : ''}
             .selector=${{ color_rgb: {} }}
             @value-changed=${this._progressColorChanged}

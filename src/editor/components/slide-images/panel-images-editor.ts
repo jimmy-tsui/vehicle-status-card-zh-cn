@@ -129,7 +129,7 @@ export class PanelImagesEditor extends BaseEditor {
   }
   private _showAddImage = async () => {
     const newImage = await showImageUploadDialog(this, {
-      title: 'Add New Image',
+      title: '添加新图片',
       data: {},
     });
     if (!newImage || newImage === null) return;

@@ -15,7 +15,7 @@ import { SUB_PANEL } from '../../editor-const';
 const CARD_DEFAULT_SCHEMA = [
   {
     name: 'title',
-    label: 'Category Title',
+    label: '分组标题',
     type: 'string',
   },
   {
@@ -24,13 +24,13 @@ const CARD_DEFAULT_SCHEMA = [
     schema: [
       {
         name: 'collapsed_items',
-        label: 'Collapsed Items',
+        label: '折叠项',
         type: 'boolean',
         default: false,
       },
       {
         name: 'state_color',
-        label: 'State Color',
+        label: '状态颜色',
         type: 'boolean',
         default: false,
       },
@@ -65,7 +65,7 @@ const ENTITY_ITEM_SCHEMA = memoizeOne(
       {
         name: 'state_template',
         selector: { template: {} },
-        helper: 'Customize the state based on a template. The template should return a valid state name.',
+        helper: '基于模板自定义状态。模板需返回合法的状态名称。',
       },
     ] as const satisfies readonly HaFormSchema[]
 );
@@ -144,9 +144,9 @@ export class PanelButtonCardDefaultItem extends ButtonCardBaseEditor {
 
   private _renderItemList(): TemplateResult {
     const actionMap = [
-      { title: 'Edit', icon: mdiPencil, action: (index: number) => (this._selectedItem = index) },
+      { title: '编辑', icon: mdiPencil, action: (index: number) => (this._selectedItem = index) },
       {
-        title: 'Delete',
+        title: '删除',
         icon: mdiDelete,
         action: (index: number) => this._deleteItem(index),
       },

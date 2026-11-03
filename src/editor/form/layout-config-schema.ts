@@ -7,7 +7,7 @@ import { SECTION_KEYS } from '../../types/config/card/layout';
 export const NAME_SCHEMA = [
   {
     name: 'name',
-    label: 'Card Name',
+    label: '卡片名称',
     required: false,
     type: 'string',
   },
@@ -16,7 +16,7 @@ export const HIDE_CARD_NAME_SCHEMA = (disabled: boolean = false) => {
   return [
     {
       name: 'hide_card_name',
-      label: 'Hide Card Name',
+      label: '隐藏卡片名称',
       type: 'boolean',
       default: false,
       disabled,
@@ -28,8 +28,8 @@ export const HIDE_CARD_NAME_SCHEMA = (disabled: boolean = false) => {
 export const SECTION_ORDER_SCHEMA = [
   {
     name: 'section_order',
-    label: 'Choose section to display',
-    helper: 'Drag to reorder the sections as you want them to appear on the card.',
+    label: '选择要显示的区块',
+    helper: '拖拽调整各区块在卡片上的显示顺序。',
     selector: {
       select: {
         mode: 'dropdown',
@@ -45,7 +45,7 @@ export const SECTION_ORDER_SCHEMA = [
 ] as const;
 export const SECTION_ORDER_SCHEMA_EXPAND = [
   {
-    title: 'Sections Order',
+    title: '区块顺序',
     type: 'expandable',
     flatten: true,
     iconPath: mdiListBox,
@@ -65,7 +65,7 @@ export const BUTTON_GRID_SCHEMA = (swipeDisabled: boolean = false) =>
       schema: [
         {
           name: 'swipe',
-          label: 'Use swipe',
+          label: '支持滑动',
           type: 'boolean',
           default: false,
         },
@@ -74,7 +74,7 @@ export const BUTTON_GRID_SCHEMA = (swipeDisabled: boolean = false) =>
           ? [
               {
                 name: 'rows',
-                label: 'Rows',
+                label: '行数',
                 type: 'integer',
                 disabled: swipeDisabled,
                 selector: { number: { mode: 'box', min: 1, step: 1 } },
@@ -84,7 +84,7 @@ export const BUTTON_GRID_SCHEMA = (swipeDisabled: boolean = false) =>
 
         {
           name: 'columns',
-          label: 'Columns',
+          label: '列数',
           type: 'integer',
           selector: { number: { mode: 'box', min: 1, step: 1 } },
         },
@@ -96,7 +96,7 @@ export const BUTTON_GRID_LAYOUT_SCHEMA = (swipeDisabled: boolean = false, name: 
   [
     {
       name,
-      title: 'Button Grid Options',
+      title: '按钮网格选项',
       type: 'expandable',
       flatten: name === '' ? true : false,
       iconPath: mdiButtonCursor,
@@ -108,7 +108,7 @@ export const BUTTON_GRID_LAYOUT_SCHEMA = (swipeDisabled: boolean = false, name: 
 const THEME_MODE_OPTIONS = ['auto', 'light', 'dark'] as const;
 export const CARD_THEME_SCHEMA = [
   {
-    title: 'Theme Options',
+    title: '主题选项',
     type: 'expandable',
     flatten: true,
     iconPath: mdiPalette,
@@ -120,14 +120,14 @@ export const CARD_THEME_SCHEMA = [
         schema: [
           {
             name: 'theme',
-            label: 'Theme',
+            label: '主题',
             default: 'default',
             required: false,
             selector: { theme: { include_default: true } },
           },
           {
             name: 'mode',
-            label: 'Theme Mode',
+            label: '主题模式',
             required: false,
             default: 'auto',
             selector: {
@@ -160,7 +160,7 @@ const BG_POSITION = [
 ] as const;
 export const CUSTOM_BACKGROUND_SCHEMA = [
   {
-    title: 'Custom Background',
+    title: '自定义背景',
     name: 'custom_background',
     type: 'expandable',
     flatten: false,
@@ -168,7 +168,7 @@ export const CUSTOM_BACKGROUND_SCHEMA = [
     schema: [
       {
         name: 'url',
-        label: 'Background Image',
+        label: '背景图片',
         required: false,
         selector: {
           media: {
@@ -181,7 +181,7 @@ export const CUSTOM_BACKGROUND_SCHEMA = [
       },
       {
         name: 'size',
-        label: 'Background Size',
+        label: '背景尺寸',
         required: false,
         default: 'cover',
         selector: {
@@ -197,7 +197,7 @@ export const CUSTOM_BACKGROUND_SCHEMA = [
       },
       {
         name: 'position',
-        label: 'Background Position',
+        label: '背景位置',
         required: false,
         default: 'center',
         selector: {

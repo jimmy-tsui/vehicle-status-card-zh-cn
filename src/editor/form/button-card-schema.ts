@@ -31,41 +31,41 @@ const ICON_TYPE = ['icon', 'entity-picture', 'icon-template'] as const;
 const BOOLEANS = [
   {
     name: 'show_primary',
-    label: 'Show Primary Info',
+    label: '显示主信息',
   },
   {
     name: 'show_secondary',
-    label: 'Show Secondary Info',
+    label: '显示次要信息',
   },
   {
     name: 'show_icon',
-    label: 'Show Icon',
+    label: '显示图标',
   },
   {
     name: 'state_color',
-    label: 'State Color',
-    helper: 'Applies the color to icon background when available',
+    label: '状态颜色',
+    helper: '在可用时把颜色应用到图标背景',
     default: false,
   },
   {
     name: 'include_state_template',
-    label: 'Include State Template',
-    helper: 'Extends the secondary content with the state_template',
+    label: '包含状态模板',
+    helper: '用 state_template 扩展次要内容',
   },
   {
     name: 'transparent',
-    label: 'Transparent background',
-    helper: 'Use this option to make the button background transparent.',
+    label: '透明背景',
+    helper: '启用此选项可使按钮背景透明。',
   },
   {
     name: 'secondary_multiline',
-    label: 'Allow multiline secondary content',
-    helper: 'Allows the secondary content to span multiple lines if needed.',
+    label: '允许次要内容多行显示',
+    helper: '允许次要内容在需要时换行显示为多行。',
   },
   {
     name: 'hide_button',
-    label: 'Hide Button on Card',
-    helper: 'Hides the button from being displayed on the card.',
+    label: '在卡片上隐藏按钮',
+    helper: '在卡片上隐藏该按钮。',
   },
 ];
 const computeBooleanSchema = (type?: BooleanItem['name'][]) => {
@@ -91,22 +91,22 @@ const computeBooleanSchema = (type?: BooleanItem['name'][]) => {
 const TEMPLATES = [
   {
     name: 'primary_template',
-    label: 'Primary Label Template',
-    helper: 'Template for the primary label. Overrides the primary label content.',
+    label: '主标签模板',
+    helper: '主标签模板。覆盖主标签的内容。',
   },
   {
     name: 'state_template',
-    label: 'Secondary State Template',
-    helper: 'Additional template to extend secondary state content.',
+    label: '次要状态模板',
+    helper: '用于扩展次要状态内容的附加模板。',
   },
   {
     name: 'icon_template',
-    label: 'Icon Template',
-    helper: 'Template to override the icon. The template should return a valid icon name.',
+    label: '图标模板',
+    helper: '通过模板覆盖图标。模板需返回合法的图标名称。',
   },
   {
     name: 'color_template',
-    label: 'Icon Color Template',
+    label: '图标颜色模板',
     helper:
       'Template to override the color to the icon. The template should return a valid CSS color (name, hex, rgb, hsl, etc.).',
   },
@@ -115,23 +115,23 @@ const TEMPLATES = [
 const BADGE_TEMPLATES = [
   {
     name: 'notify',
-    label: 'Badge visibility',
-    helper: 'Use Jinja2 template with result `true` to display notification badge',
+    label: '徽标可见性',
+    helper: '使用 Jinja2 模板，结果为 `true` 时显示通知徽标',
   },
   {
     name: 'notify_color',
-    label: 'Badge color',
-    helper: 'Color applied to the badge. Supports Templating or CSS color formats',
+    label: '徽标颜色',
+    helper: '徽标颜色。支持模板或 CSS 颜色格式',
   },
   {
     name: 'notify_icon',
-    label: 'Badge icon',
-    helper: 'Icon displayed as a badge. Supports Templating',
+    label: '徽标图标',
+    helper: '以徽标显示的图标。支持模板',
   },
   {
     name: 'notify_text',
-    label: 'Badge text (replace icon)',
-    helper: 'Text displayed inside the badge. Supports Templating',
+    label: '徽标文本（替换图标）',
+    helper: '徽标内显示的文本。支持模板',
   },
 ] as const;
 
@@ -168,12 +168,12 @@ const NOTIFY_TEMPLATE_KEYS: TemplateKey[] = ['notify', 'notify_color', 'notify_i
 const _generateOptionalTemplate = (type: 'base' | 'notify') => {
   const schemaObj = {
     base: {
-      title: 'Extra Templates (Advanced)',
+      title: '附加模板（高级）',
       icon: 'mdi:code-block-braces',
       keys: BASE_TEMPLATE_KEYS,
     },
     notify: {
-      title: 'Badge',
+      title: '徽标',
       icon: 'mdi:square-rounded-badge',
       keys: NOTIFY_TEMPLATE_KEYS,
     },
@@ -203,7 +203,7 @@ const _generateOptionalTemplate = (type: 'base' | 'notify') => {
 const BUTTON_BEHAVIOR_SCHEMA = (isActionButton: boolean) => {
   return [
     {
-      title: 'Button Behavior',
+      title: '按钮行为',
       type: 'expandable',
       flatten: true,
       icon: 'mdi:gesture-tap-button',
@@ -215,7 +215,7 @@ const BUTTON_BEHAVIOR_SCHEMA = (isActionButton: boolean) => {
           schema: [
             {
               name: 'button_type',
-              label: 'Button Type',
+              label: '按钮类型',
               default: 'default',
               selector: {
                 select: {
@@ -226,7 +226,7 @@ const BUTTON_BEHAVIOR_SCHEMA = (isActionButton: boolean) => {
             },
             {
               name: 'card_type',
-              label: 'Card Type',
+              label: '卡片类型',
               default: 'default',
               disabled: isActionButton,
               selector: {
@@ -250,7 +250,7 @@ const BUTTON_BEHAVIOR_SCHEMA = (isActionButton: boolean) => {
 
 const ICON_COLOR_SCHEMA = [
   {
-    title: 'Icon & Color',
+    title: '图标与颜色',
     type: 'expandable',
     flatten: true,
     icon: 'mdi:emoticon-happy',
@@ -282,8 +282,8 @@ const ICON_COLOR_SCHEMA = [
           },
           {
             name: 'icon_type',
-            label: 'Icon Type',
-            helper: 'Determines how the icon is generated and displayed. (default: icon)',
+            label: '图标类型',
+            helper: '决定图标的生成与显示方式。（默认：图标）',
             required: false,
             default: 'icon',
             selector: {
@@ -311,7 +311,7 @@ const ICON_COLOR_SCHEMA = [
 
 const PRIMARY_INFO_SCHEMA = [
   {
-    title: 'Primary Information',
+    title: '主信息',
     type: 'expandable',
     flatten: true,
     icon: 'mdi:format-text',
@@ -322,8 +322,8 @@ const PRIMARY_INFO_SCHEMA = [
       ...computeBooleanSchema(['show_primary']),
       {
         name: 'primary_info',
-        label: 'Primary Information',
-        helper: 'Choose type of content to display as primary information (default: Name)',
+        label: '主信息',
+        helper: '选择作为主信息显示的内容类型（默认：名称）',
         required: false,
         default: 'name',
         selector: {
@@ -349,7 +349,7 @@ const PRIMARY_INFO_SCHEMA = [
 const SECONDARY_INFO_SCHEMA = (entity?: string) =>
   [
     {
-      title: 'Secondary Information',
+      title: '次要信息',
       type: 'expandable',
       flatten: true,
       icon: 'mdi:format-text-variant',
@@ -362,7 +362,7 @@ const SECONDARY_INFO_SCHEMA = (entity?: string) =>
           ? [
               {
                 name: 'state_content',
-                label: 'Secondary State Content',
+                label: '次要状态内容',
                 helper:
                   'Additional content to display in the secondary state area. Select from available attributes and options.',
                 selector: {
@@ -383,7 +383,7 @@ const SECONDARY_INFO_SCHEMA = (entity?: string) =>
 
 const LAYOUT_SCHEMA = [
   {
-    title: 'Layout & Style',
+    title: '布局与样式',
     type: 'expandable',
     flatten: true,
     icon: 'mdi:image-text',
@@ -391,7 +391,7 @@ const LAYOUT_SCHEMA = [
       ...computeBooleanSchema(['transparent', 'secondary_multiline']),
       {
         name: 'layout',
-        label: 'Button Layout',
+        label: '按钮布局',
         required: true,
         selector: {
           select: {
@@ -417,7 +417,7 @@ export const MAIN_BUTTON_SCHEMA = (data: BaseButtonCardItemConfig) => {
   const entity = data?.entity;
   return [
     {
-      title: 'Context & Identity',
+      title: '上下文与标识',
       type: 'expandable',
       flatten: true,
       iconPath: mdiButtonCursor,
@@ -426,14 +426,14 @@ export const MAIN_BUTTON_SCHEMA = (data: BaseButtonCardItemConfig) => {
 
         {
           name: 'name',
-          label: 'Name (optional)',
+          label: '名称（可选）',
           required: false,
           selector: { text: {} },
         },
         {
           name: 'entity',
-          label: 'Entity (optional)',
-          helper: 'Entity used for templating, actions, and state display',
+          label: '实体（可选）',
+          helper: '用于模板、动作与状态显示的实体',
           required: false,
           selector: {
             entity: {},
@@ -443,7 +443,7 @@ export const MAIN_BUTTON_SCHEMA = (data: BaseButtonCardItemConfig) => {
       ] as const,
     },
     {
-      title: 'Appearance & Content',
+      title: '外观与内容',
       type: 'expandable',
       flatten: true,
       iconPath: mdiPalette,
@@ -457,18 +457,18 @@ export const MAIN_BUTTON_SCHEMA = (data: BaseButtonCardItemConfig) => {
       ] as const,
     },
     {
-      title: 'Interactions',
+      title: '交互',
       type: 'expandable',
       flatten: true,
       iconPath: mdiGestureTap,
       schema: [
         ...BUTTON_BEHAVIOR_SCHEMA(isActionButton),
         {
-          title: 'Icon Interactions',
+          title: '图标交互',
           type: 'expandable',
           flatten: true,
           icon: 'mdi:gesture-tap-hold',
-          helper: 'Action and behavior when interacting with the icon',
+          helper: '点击图标时的动作与行为',
           schema: [...computeIconActionSchema()] as const,
         },
       ] as const,

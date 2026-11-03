@@ -13,10 +13,10 @@ export const ActionTypes = ['edit-item', 'show-item', 'duplicate-item', 'delete-
 export type ActionType = (typeof ActionTypes)[number];
 
 export const DefaultActions: MenuItemConfig[] = [
-  { title: 'Edit', action: 'edit-item', icon: 'mdi:pencil' },
-  { title: 'Delete', action: 'delete-item', icon: 'mdi:delete' },
-  { title: 'Show Item', action: 'show-item', icon: 'mdi:eye' },
-  { title: 'Duplicate', action: 'duplicate-item', icon: 'mdi:content-duplicate' },
+  { title: '编辑', action: 'edit-item', icon: 'mdi:pencil' },
+  { title: '删除', action: 'delete-item', icon: 'mdi:delete' },
+  { title: '显示条目', action: 'show-item', icon: 'mdi:eye' },
+  { title: '复制', action: 'duplicate-item', icon: 'mdi:content-duplicate' },
 ];
 
 export const createActionsMenu = (overrides?: Partial<MenuItemConfig>[]): MenuItemConfig[] => {
@@ -45,13 +45,13 @@ export const computeActionList = (actions: ActionType[]): MenuItemConfig[] => {
 };
 
 export const BUTTON_ACTION_MENU: MenuItemConfig[] = [
-  { title: 'Edit', action: ACTIONS.EDIT_BUTTON, icon: 'mdi:pencil' },
-  { title: 'Show Button', action: ACTIONS.SHOW_BUTTON, icon: 'mdi:eye' },
-  { title: 'Duplicate', action: ACTIONS.DUPLICATE_BUTTON, icon: 'mdi:content-duplicate' },
-  { title: 'Hide on card', action: ACTIONS.HIDE_BUTTON, icon: 'mdi:eye-off' },
-  { title: 'Unhide on card', action: ACTIONS.UNHIDE_BUTTON, icon: 'mdi:eye' },
+  { title: '编辑', action: ACTIONS.EDIT_BUTTON, icon: 'mdi:pencil' },
+  { title: '显示按钮', action: ACTIONS.SHOW_BUTTON, icon: 'mdi:eye' },
+  { title: '复制', action: ACTIONS.DUPLICATE_BUTTON, icon: 'mdi:content-duplicate' },
+  { title: '在卡片上隐藏', action: ACTIONS.HIDE_BUTTON, icon: 'mdi:eye-off' },
+  { title: '在卡片上显示', action: ACTIONS.UNHIDE_BUTTON, icon: 'mdi:eye' },
   {
-    title: 'Delete',
+    title: '删除',
     action: ACTIONS.DELETE_BUTTON,
     icon: 'mdi:delete',
     color: 'var(--error-color)',
@@ -59,31 +59,31 @@ export const BUTTON_ACTION_MENU: MenuItemConfig[] = [
 ];
 
 export const GROUP_ENTITY_ADDED_ACTIONS: MenuItemConfig[] = [
-  { title: 'Add to exclude list', action: 'add-exclude-entity', icon: 'mdi:close-circle' },
-  { title: 'Remove from exclude list', action: 'remove-exclude-entity', icon: 'mdi:check-circle' },
+  { title: '添加到排除列表', action: 'add-exclude-entity', icon: 'mdi:close-circle' },
+  { title: '从排除列表移除', action: 'remove-exclude-entity', icon: 'mdi:check-circle' },
 ];
 
 export const ROW_MAIN_ACTIONS: MenuItemConfig[] = [
-  { title: 'Edit Row', action: 'edit', icon: 'mdi:pencil' },
-  { title: 'Show Row', action: 'peek', icon: 'mdi:eye' },
-  { title: 'Delete Row', action: 'delete', icon: 'mdi:delete' },
+  { title: '编辑行', action: 'edit', icon: 'mdi:pencil' },
+  { title: '显示行', action: 'peek', icon: 'mdi:eye' },
+  { title: '删除行', action: 'delete', icon: 'mdi:delete' },
 ];
 
 export const IMAGE_MENU_ACTIONS: MenuItemConfig[] = [
-  { title: 'Show Image', action: 'show-image', icon: 'mdi:eye' },
-  { title: 'Edit Image', action: 'edit-image', icon: 'mdi:pencil' },
-  { title: 'Delete Image', action: 'delete-image', icon: 'mdi:delete' },
+  { title: '显示图片', action: 'show-image', icon: 'mdi:eye' },
+  { title: '编辑图片', action: 'edit-image', icon: 'mdi:pencil' },
+  { title: '删除图片', action: 'delete-image', icon: 'mdi:delete' },
 ];
 
 export const CONFIG_AREA_ACTIONS: MenuItemConfig[] = [
-  { title: 'Show section', action: 'show-area', icon: 'mdi:eye' },
-  { title: 'Documentation', action: 'open-doc', icon: 'mdi:book-open-variant' },
+  { title: '显示区块', action: 'show-area', icon: 'mdi:eye' },
+  { title: '文档', action: 'open-doc', icon: 'mdi:book-open-variant' },
 ];
 
 export const BUTTON_DEFAULT_CARD_CATEGORY_ACTIONS: MenuItemConfig[] = [
-  { title: 'Edit Category', action: 'edit', icon: 'mdi:pencil' },
-  { title: 'Duplicate Category', action: 'duplicate', icon: 'mdi:content-duplicate' },
-  { title: 'Delete Category', action: 'delete', icon: 'mdi:delete' },
+  { title: '编辑分组', action: 'edit', icon: 'mdi:pencil' },
+  { title: '复制分组', action: 'duplicate', icon: 'mdi:content-duplicate' },
+  { title: '删除分组', action: 'delete', icon: 'mdi:delete' },
 ];
 
 export const _renderActionItem = ({

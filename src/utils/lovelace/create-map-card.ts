@@ -42,7 +42,12 @@ export const _getMapAddress = async (config: MiniMapConfig, lat: number, lon: nu
     } else {
       const maptilerKey = config?.maptiler_api_key;
       const apiKey = config?.google_api_key;
+      const tiandituKey = config?.tianditu_key;
+      const useTianditu = config?.map_source === 'tianditu' && !!tiandituKey;
 
+      if (useTianditu) {
+        return getAddressFromTianditu(lat, lon, tiandituKey!);
+      }
       return maptilerKey
         ? getAddressFromMapTiler(lat, lon, maptilerKey)
         : apiKey
@@ -154,6 +159,35 @@ export async function getAddressFromOpenStreet(lat: number, lon: number): Promis
     };
   } catch (error) {
     console.warn('Error fetching address:', error);
+    return null;
+  }
+}
+
+export async function getAddressFromTianditu(lat: number, lon: number, apiKey: string): Promise<Address | null> {
+  // Tianditu reverse geocoding (国内网络友好，配合 map_source: 'tianditu')
+  try {
+    const postStr = JSON.stringify({ lon, lat, ver: 1 });
+    const url = `https://api.tianditu.gov.cn/geocoder?postStr=${encodeURIComponent(postStr)}&type=geocode&tk=${apiKey}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('Failed to fetch address from Tianditu');
+    }
+    const data: any = await response.json();
+    if (data.status !== '0' && data.msg !== 'ok' && !data.result) {
+      console.warn('Tianditu geocoder error:', data.msg || data.status);
+      return null;
+    }
+    const result = data.result || data;
+    const comp = result.addressComponent || {};
+    const streetNumber = comp.streetNumber ? `${comp.streetNumber}` : '';
+    return {
+      streetNumber,
+      streetName: comp.street || comp.address || result.formatted_address || '',
+      sublocality: comp.county || comp.district || '',
+      city: comp.city || '',
+    };
+  } catch (error) {
+    console.warn('Error fetching address from Tianditu:', error);
     return null;
   }
 }

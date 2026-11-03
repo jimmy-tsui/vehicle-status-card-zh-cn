@@ -30,28 +30,28 @@ const CHARGING_KEYS = [
 const TEMPLATES = [
   {
     name: 'charging_template',
-    label: 'Charging Template',
-    helper: 'Template to set the visibility of the charging active icon',
+    label: '充电模板',
+    helper: '用模板控制充电中图标的可见性',
   },
   {
     name: 'charging_icon_template',
-    label: 'Charging Icon Template',
-    helper: 'Override the default charging icon with a custom one based on a template',
+    label: '充电图标模板',
+    helper: '基于模板用自定义图标覆盖默认的充电图标',
   },
   {
     name: 'charging_icon_color_template',
-    label: 'Charging Icon Color Template',
-    helper: 'Template to set the color of the charging icon, overrides the default bar color',
+    label: '充电图标颜色模板',
+    helper: '用模板设置充电图标的颜色，覆盖默认的进度条颜色',
   },
   {
     name: 'charge_target_visibility',
-    label: 'Charge Target Visibility',
-    helper: 'Template to set the visibility of the charge target line, defaults true if charge_target_entity is set',
+    label: '充电目标可见性',
+    helper: '用模板控制充电目标线的可见性；若设置了 charge_target_entity 则默认为 true',
   },
   {
     name: 'visibility_template',
     label: ' ',
-    helper: 'The bar will be shown when the template result is true',
+    helper: '当模板结果为 true 时显示进度条',
   },
 ];
 
@@ -88,7 +88,7 @@ export const VALUE_ALIGNMENT_SCHEMA = (disabled: boolean) => {
   return [
     {
       name: 'value_alignment',
-      label: 'Value Alignment',
+      label: '数值对齐',
       default: 'end',
       selector: {
         select: {
@@ -108,27 +108,27 @@ export const RANGE_ITEM_BASE_SCHEMA = () =>
   [
     {
       name: 'icon',
-      label: 'Icon',
+      label: '图标',
       selector: { icon: {} },
       context: { icon_entity: 'entity' },
     },
     {
       name: 'hide_icon',
-      label: 'Hide Icon',
+      label: '隐藏图标',
       type: 'boolean',
       default: false,
-      helper: 'Hide the icon even if set',
+      helper: '即使已设置也隐藏图标',
     },
     {
       name: 'icon_state_color',
-      label: 'Icon State Color',
+      label: '图标状态颜色',
       type: 'boolean',
       default: false,
-      helper: 'Use the state color for the icon',
+      helper: '为图标使用状态颜色',
     },
     {
       name: 'value_position',
-      label: 'Value Position',
+      label: '数值位置',
       default: 'outside',
       selector: {
         select: {
@@ -152,7 +152,7 @@ export const RANGE_ITEM_SCHEMA = memoizeOne((entityId: string, required: boolean
     ? [
         {
           name: 'attribute',
-          label: 'Attribute',
+          label: '属性',
           selector: {
             attribute: {
               entity_id: entityId,
@@ -170,7 +170,7 @@ export const RANGE_ITEM_SCHEMA = memoizeOne((entityId: string, required: boolean
               ? [
                   {
                     name: 'max_value',
-                    label: 'Max Value',
+                    label: '最大值',
                     type: 'integer',
                     valueMin: 0,
                   },
@@ -181,7 +181,7 @@ export const RANGE_ITEM_SCHEMA = memoizeOne((entityId: string, required: boolean
         {
           name: '',
           type: 'expandable',
-          title: 'Interaction Options',
+          title: '交互选项',
           icon: 'mdi:gesture-tap-button',
           flatten: true,
           schema: [...computeOptionalActionSchemaFull()],
@@ -198,19 +198,19 @@ export const PROGRESS_BAR_SCHEMA = [
     schema: [
       {
         name: 'bar_height',
-        label: 'Bar Height (px)',
+        label: '进度条高度 (px)',
         type: 'integer',
         valueMin: 1,
       },
       {
         name: 'bar_width',
-        label: 'Bar Width (%)',
+        label: '进度条宽度 (%)',
         type: 'integer',
         valueMax: 100,
       },
       {
         name: 'bar_radius',
-        label: 'Bar Radius (px)',
+        label: '圆角半径 (px)',
         type: 'integer',
         valueMin: 0,
       },
@@ -227,7 +227,7 @@ export const CHARGING_STATE_SCHEMA = () => {
       required: false,
     },
     {
-      title: 'Template Options (Optional)',
+      title: '模板选项（可选）',
       type: 'expandable',
       flatten: true,
       icon: 'mdi:code-json',
@@ -262,7 +262,7 @@ export const CHARGE_TARGET_SCHEMA = (entityId: string | undefined) =>
             schema: [
               {
                 name: 'charge_target_color',
-                label: 'Charge Target Line Color',
+                label: '充电目标线颜色',
                 selector: {
                   ui_color: {
                     include_none: false,
@@ -275,16 +275,16 @@ export const CHARGE_TARGET_SCHEMA = (entityId: string | undefined) =>
           },
           {
             name: 'charge_target_tooltip',
-            label: 'Use Tooltip',
-            helper: 'Show tooltip with target value when hovering over the charge target line',
+            label: '显示提示浮层',
+            helper: '悬停在充电目标线上时，用提示浮层显示目标值',
             default: false,
             type: 'boolean',
           },
           {
             name: 'charge_target_visibility',
-            label: 'Charge Target Visibility',
+            label: '充电目标可见性',
             helper:
-              'Template to set the visibility of the charge target line, defaults true if charge_target_entity is set',
+              '用模板控制充电目标线的可见性；若设置了 charge_target_entity 则默认为 true',
             selector: { template: {} },
           },
         ]
@@ -295,7 +295,7 @@ const RANGE_LAYOUTS = ['column', 'row'] as const;
 export const RANGE_LAYOUT_SCHEMA = [
   {
     name: 'layout',
-    label: 'Layout appearance',
+    label: '布局外观',
     type: 'select',
     default: 'column',
     required: false,
@@ -306,7 +306,7 @@ export const RANGE_LAYOUT_SCHEMA = [
 export const RANGE_LAYOUT = [
   {
     name: 'layout',
-    label: 'Choose Range Info Layout',
+    label: '选择里程信息布局',
     default: 'column',
     required: false,
     selector: {

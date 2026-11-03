@@ -142,7 +142,7 @@ export class BaseEditor extends LitElement {
     const config = { ...(this._store._config || {}) };
     if (!config || typeof config !== 'object') return;
 
-    let title: string = 'Sections Order';
+    let title: string = '区块顺序';
     const data = {} as Record<string, any>;
     const schema: any[] = [...SECTION_ORDER_SCHEMA];
 
@@ -232,7 +232,7 @@ export class BaseEditor extends LitElement {
         const buttonContent = createForm(data.button_grid, schemas.button_grid);
         return Create.SectionPanel([
           {
-            title: 'Button grid configuration',
+            title: '按钮网格配置',
             content: buttonContent,
           },
         ]);
@@ -240,7 +240,7 @@ export class BaseEditor extends LitElement {
         const imageContent = createForm(data.image_swipe, schemas.images_swipe);
         return Create.SectionPanel([
           {
-            title: 'Slide configuration',
+            title: '轮播配置',
             content: imageContent,
           },
         ]);

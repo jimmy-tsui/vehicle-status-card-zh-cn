@@ -57,9 +57,9 @@ export class PanelIndicatorGroup extends LitElement {
     }
     const groups = this.groupConfig || [];
     const actionMap = [
-      { title: 'Edit', icon: 'mdi:pencil', action: (index: number) => this._handleAction('edit-group', index) },
+      { title: '编辑', icon: 'mdi:pencil', action: (index: number) => this._handleAction('edit-group', index) },
       {
-        title: 'Remove',
+        title: '移除',
         icon: 'mdi:delete',
         action: (index: number) => this._handleAction('remove-group', index),
         color: 'var(--error-color)',

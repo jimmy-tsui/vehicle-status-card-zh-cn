@@ -271,7 +271,7 @@ export class PanelButtonList extends BaseEditor {
           ${hiddenButtons.length > 0
             ? Create.SectionPanel([
                 {
-                  title: 'Hidden Buttons',
+                  title: '隐藏的按钮',
                   content: html`
                     ${hiddenButtons.map((btn: ButtonCardConfig, index: number) => {
                       const realIndex = visibleButtons.length + index;
@@ -285,12 +285,12 @@ export class PanelButtonList extends BaseEditor {
   }
   private _buttonActionsMap(hide_button: boolean = false, index: number): TemplateResult {
     let actionMap = [
-      { title: 'Show Button', action: ACTIONS.SHOW_BUTTON, icon: 'mdi:eye' },
-      { title: 'Duplicate', action: ACTIONS.DUPLICATE_BUTTON, icon: 'mdi:content-duplicate' },
-      { title: 'Hide on card', action: ACTIONS.HIDE_BUTTON, icon: 'mdi:eye-off' },
-      { title: 'Unhide on card', action: ACTIONS.UNHIDE_BUTTON, icon: 'mdi:eye' },
+      { title: '显示按钮', action: ACTIONS.SHOW_BUTTON, icon: 'mdi:eye' },
+      { title: '复制', action: ACTIONS.DUPLICATE_BUTTON, icon: 'mdi:content-duplicate' },
+      { title: '在卡片上隐藏', action: ACTIONS.HIDE_BUTTON, icon: 'mdi:eye-off' },
+      { title: '在卡片上显示', action: ACTIONS.UNHIDE_BUTTON, icon: 'mdi:eye' },
       {
-        title: 'Delete',
+        title: '删除',
         action: ACTIONS.DELETE_BUTTON,
         icon: 'mdi:delete',
         color: 'var(--error-color)',
@@ -299,21 +299,21 @@ export class PanelButtonList extends BaseEditor {
 
     if (isTouch || isMobileClient) {
       actionMap.unshift({
-        title: 'Edit Button',
+        title: '编辑按钮',
         action: ACTIONS.EDIT_BUTTON,
         icon: 'mdi:pencil',
       });
     }
 
     actionMap = actionMap.filter((action) => {
-      if (action.title === 'Show Button' && hide_button) {
+      if (action.title === '显示按钮' && hide_button) {
         return false;
       }
-      if (action.title === 'Hide on card' && hide_button) {
+      if (action.title === '在卡片上隐藏' && hide_button) {
         return false;
       }
 
-      if (action.title === 'Unhide on card' && !hide_button) {
+      if (action.title === '在卡片上显示' && !hide_button) {
         return false;
       }
       return true;

@@ -36,7 +36,7 @@ const createDefaultAndCustom = (
     createDefaultCard('Category default expanded', false, contentEntities),
     createDefaultCard('Category collapsed', true, contentEntities),
   ],
-  custom: [createCustomCard('Custom Card', contentEntities)],
+  custom: [createCustomCard('自定义卡片', contentEntities)],
 });
 
 export const createButtonCard = (

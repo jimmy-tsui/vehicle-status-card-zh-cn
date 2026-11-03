@@ -76,7 +76,7 @@ export const computeNewRow = (hass: HomeAssistant): IndicatorRowConfig => {
     rowItems.push(ensureRowItemConfig(baseEntities[1]) as IndicatorEntityConfig);
     rowItems.push({
       type: 'group',
-      name: 'Group',
+      name: '分组',
       show_name: true,
       icon: `mdi:numeric-${baseEntities.length}-circle`,
       items: [

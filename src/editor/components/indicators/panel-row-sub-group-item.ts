@@ -50,9 +50,9 @@ export class PanelRowSubGroupItem extends BaseEditor {
     const ignoreGroupMenbers = !!config.ignore_group_members;
 
     const actionMap = [
-      { title: 'Edit', icon: mdiPencil, action: (index: number) => this._editItem(index) },
+      { title: '编辑', icon: mdiPencil, action: (index: number) => this._editItem(index) },
       {
-        title: 'Delete',
+        title: '删除',
         icon: mdiDelete,
         action: (index: number) => this._deleteItem(index),
       },
@@ -135,8 +135,8 @@ export class PanelRowSubGroupItem extends BaseEditor {
     `;
 
     const expansionOpts = {
-      header: `Auto generated entities from entity`,
-      secondary: 'You can exclude entities from the list below',
+      header: `由主实体自动生成的实体`,
+      secondary: '你可以从下方列表中排除实体',
     };
 
     return Create.ExpansionPanel({ content, options: expansionOpts });
