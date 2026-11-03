@@ -1,0 +1,9 @@
+dist
+.vscode
+.devcontainer
+package-lock.json
+*.md
+*.yaml
+*.yml
+*.txt
+/node_modules/
