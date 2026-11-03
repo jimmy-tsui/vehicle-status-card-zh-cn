@@ -20,7 +20,6 @@ export class VscDialogHaMap extends LitElement implements HassDialog<MapDialogPa
   @state() private _mapConfig?: MiniMapConfig;
   @state() private _mapCard?: LovelaceCardConfig[];
   @state() private useMapTiler: boolean = false;
-  @state() private _mapSource: 'openfreemap' | 'tianditu' | 'gaode' = 'openfreemap';
 
   @state() private _open: boolean = false;
   @state() private _loaded: boolean = false;
@@ -32,14 +31,13 @@ export class VscDialogHaMap extends LitElement implements HassDialog<MapDialogPa
     this._params = params;
     this._mapConfig = params.map_config;
     this.useMapTiler = params.use_map_tiler ?? false;
-    this._mapSource = this._mapConfig?.map_source ?? 'openfreemap';
     this._open = true;
-    if (!this._mapCard && this._mapSource !== 'gaode') {
+    if (!this._mapCard) {
       this._mapCard = await createSingleMapCard(this._mapConfig, this.hass);
       this._mapCard.map((card) => (card.hass = this.hass));
+      this._loaded = true;
+      this._setObserver();
     }
-    this._loaded = true;
-    this._setObserver();
   }
 
   connectedCallback(): void {
@@ -58,9 +56,6 @@ export class VscDialogHaMap extends LitElement implements HassDialog<MapDialogPa
   }
 
   private _setObserver(): void {
-    if (this._mapSource === 'gaode') {
-      return;
-    }
     this.updateComplete.then(() => {
       const mapTagName = this.useMapTiler ? CARD_TAG.EXTRA_MAP : CARD_TAG.HUI_MAP;
       const root = this.shadowRoot
@@ -119,13 +114,7 @@ export class VscDialogHaMap extends LitElement implements HassDialog<MapDialogPa
             ? html` <div class="loading-content">
                 <ha-fade-in .delay=${500}><ha-spinner size="large"></ha-spinner></ha-fade-in>
               </div>`
-            : this._mapSource === 'gaode'
-              ? html`<vsc-mini-map
-                  class="big-mini"
-                  .hass=${this.hass}
-                  .config=${this._mapConfig}
-                ></vsc-mini-map>`
-              : html`${this._mapCard}`}
+            : html`${this._mapCard}`}
         </div>
       </ha-dialog>
     `;
@@ -144,11 +133,6 @@ export class VscDialogHaMap extends LitElement implements HassDialog<MapDialogPa
     return [
       DEFAULT_HA_MAP_STYLES,
       css`
-        vsc-mini-map.big-mini {
-          width: 100%;
-          height: 100%;
-          min-height: 480px;
-        }
         .close-button {
           position: absolute;
           top: 0.5rem;

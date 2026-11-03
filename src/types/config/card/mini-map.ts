@@ -140,10 +140,6 @@ export function computeExtraMapConfig(config: MiniMapConfig): Partial<ExtraMapCa
 
 export function computePopupCardConfig(config: MiniMapConfig): LovelaceMapPopupConfig {
   const useMaptiler = config?.maptiler_api_key && config?.maptiler_api_key !== '';
-  const source = config?.map_source ?? 'openfreemap';
-  if (source === 'tianditu') {
-    return { type: 'map', ...mapCommonPopupConfig(config) } as MapCardConfig;
-  }
   if (!config.entities || (Array.isArray(config.entities) && config.entities.length === 0)) {
     config.entities = [{ entity: config.device_tracker } as EntityConfig];
   }
