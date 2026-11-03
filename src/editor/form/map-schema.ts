@@ -31,15 +31,15 @@ export const BASE_MAP_SCHEMA = [
 ] as const;
 
 const LAYOUT_BOOL = [
-  'enable_popup',
-  'us_format',
-  'hide_map_address',
-  'use_zone_name',
-  'user_location',
-  'disable_interaction',
+  { name: 'enable_popup', label: '启用弹窗' },
+  { name: 'us_format', label: '美式地址格式' },
+  { name: 'hide_map_address', label: '隐藏地图地址' },
+  { name: 'use_zone_name', label: '使用区域名称' },
+  { name: 'user_location', label: '用户位置' },
+  { name: 'disable_interaction', label: '禁用地图交互' },
 ] as const;
 
-const LAYOUT_BOOL_HELPER: Partial<Record<(typeof LAYOUT_BOOL)[number], string>> = {
+const LAYOUT_BOOL_HELPER: Partial<Record<(typeof LAYOUT_BOOL)[number]['name'], string>> = {
   disable_interaction:
     '禁止内联地图的拖拽/平移和滚轮缩放，避免其拦截仪表盘的滚动手势。点击地图改为弹出大图。',
 };
@@ -55,8 +55,9 @@ export const MINI_MAP_LAYOUT_SCHEMA = [
         type: 'grid',
         flatten: true,
         schema: [
-          ...LAYOUT_BOOL.map((name) => ({
+          ...LAYOUT_BOOL.map(({ name, label }) => ({
             name,
+            label,
             helper: LAYOUT_BOOL_HELPER[name],
             selector: { boolean: {} },
           })),
@@ -68,11 +69,13 @@ export const MINI_MAP_LAYOUT_SCHEMA = [
         schema: [
           {
             name: 'map_zoom',
+            label: '地图缩放级别',
             default: 14,
             selector: { number: { mode: 'box', min: 0, max: 20, step: 1 } },
           },
           {
             name: 'map_height',
+            label: '地图高度',
             default: 150,
             selector: { number: { mode: 'box', min: 150, max: 500, step: 10 } },
           },
